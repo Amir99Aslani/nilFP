@@ -1,0 +1,427 @@
+@use '../../styles/variables' as *;
+
+.wrap {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.h2 {
+  font-size: clamp(26px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.lead {
+  font-size: 16px;
+  max-width: 1262px;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  border-radius: $r-sm;
+  border: 1px solid $wine;
+  white-space: nowrap;
+  transition: opacity .2s;
+}
+
+.btn:hover {
+  opacity: .9;
+}
+
+.primary {
+  background: $wine;
+  color: $white;
+}
+
+.outline {
+  background: transparent;
+  color: $wine;
+}
+
+.btnRow {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: $r-lg;
+}
+
+/* Hero: 1520 x 712 */
+.hero {
+  padding: 56px 24px $section-gap;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 40px;
+}
+
+.heroMedia {
+  position: relative;
+  height: 712px;
+  border-radius: $r-lg;
+  overflow: hidden;
+  text-align: left;
+  @include mobile {
+    height: 480px;
+  }
+}
+
+.heroMedia .img {
+  border-radius: 0;
+}
+
+.heroCard {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(55%, 840px);
+  background: $white;
+  padding: 40px 40px 32px;
+  border-top-left-radius: $r-lg;
+  @include mobile {
+    width: 92%;
+    padding: 20px;
+  }
+}
+
+.heroCard h2 {
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.heroCard h2 span {
+  color: $gold;
+  margin-right: 10px;
+}
+
+.heroCard p {
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+
+/* Intro: 700 text + 72 gap + 748 image */
+.intro {
+  padding-bottom: $section-gap;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 700fr 748fr;
+  gap: 72px;
+  align-items: center;
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.introGrid h2 {
+  margin-bottom: 24px;
+}
+
+.introGrid p {
+  margin-bottom: 32px;
+  text-align: justify;
+}
+
+.introImg {
+  height: 450px;
+}
+
+/* Dark bands */
+.dark {
+  background: $charcoal;
+  color: $white;
+  text-align: center;
+  padding: $section-gap 0;
+  @include mobile {
+    padding: 64px 0;
+  }
+}
+
+.dark .h2 {
+  color: $white;
+  margin-bottom: 24px;
+}
+
+.dark .lead {
+  color: $white;
+}
+
+/* Six-sector grid: 3 x 2, 184px rows */
+.grid6 {
+  margin-top: 64px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(184px, auto);
+  border: 1px solid $gold;
+  border-radius: $r-md;
+  overflow: hidden;
+  text-align: left;
+  background: $white;
+  color: $body;
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cell {
+  padding: 32px 28px;
+  border-right: 1px solid $gold;
+  border-bottom: 1px solid $gold;
+}
+
+.cell:nth-child(3n) {
+  border-right: 0;
+}
+
+.cell:nth-child(n+4) {
+  border-bottom: 0;
+}
+
+@include mobile {
+  .cell {
+    border-right: 0;
+    border-bottom: 1px solid $gold !important;
+  }
+  .cell:last-child {
+    border-bottom: 0 !important;
+  }
+}
+
+.cell svg {
+  color: $gold;
+  margin-bottom: 16px;
+}
+
+.cell h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cell p {
+  font-size: 14px;
+  color: $muted;
+  line-height: 1.7;
+}
+
+/* Container showcase: 1520 x 700, text column 515 */
+.trust {
+  padding: $section-gap 24px;
+}
+
+.trustGrid {
+  display: grid;
+  grid-template-columns: 1fr 515px;
+  gap: 100px;
+  align-items: center;
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.trustImg {
+  height: 700px;
+  @include mobile {
+    height: 380px;
+  }
+}
+
+.trustGrid h2 {
+  margin-bottom: 24px;
+}
+
+.trustGrid p {
+  text-align: justify;
+  margin-bottom: 32px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 170px 170px;
+  gap: 32px 60px;
+  margin-bottom: 40px;
+}
+
+.stats strong {
+  display: block;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: $heading;
+}
+
+.stats span {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* Process: 5 x 288, 20 gap */
+.steps {
+  margin-top: 64px;
+  padding-top: 48px;
+  border-top: 1px solid $white;
+  display: grid;
+  grid-template-columns: repeat(5, 288px);
+  justify-content: space-between;
+  gap: 20px;
+  text-align: center;
+  @include mobile {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.step {
+  background: $white;
+  color: $body;
+  border-radius: $r-md;
+  padding: 16px;
+  min-height: 334px;
+}
+
+.step img {
+  height: 140px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+.step h3 {
+  font-family: var(--font-open-sans), 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.step p {
+  font-size: 14px;
+  color: $muted;
+  line-height: 1.7;
+}
+
+/* CTA */
+.cta {
+  position: relative;
+  padding: $section-gap 0;
+  text-align: center;
+}
+
+.ctaBg {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 100%;
+  width: 700px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.ctaBody {
+  position: relative;
+}
+
+.ctaBody h2 {
+  margin-bottom: 12px;
+}
+
+.ctaBody p {
+  font-size: 20px;
+  max-width: 620px;
+  margin: 0 auto 32px;
+}
+
+/* FAQ: 687 + 85 + 748 */
+.faq {
+  padding: 0 24px $section-gap;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: 687fr 748fr;
+  gap: 85px;
+  @include mobile {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.faqImg {
+  height: 687px;
+  @include mobile {
+    height: 380px;
+  }
+}
+
+.faqList h2 {
+  margin-bottom: 32px;
+}
+
+.faqList details {
+  padding: 0 24px;
+  border-bottom: 1px solid $divider;
+}
+
+.faqList details[open] {
+  background: $surface;
+  border-bottom: 0;
+  padding-bottom: 24px;
+  border-radius: $r-sm;
+}
+
+.faqList summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 88px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  list-style: none;
+  color: $heading;
+}
+
+.faqList details[open] summary {
+  min-height: 72px;
+}
+
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqList summary::after {
+  content: '+';
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.faqList details[open] summary::after {
+  content: '\2212';
+}
+
+.faqList details p {
+  font-size: 14px;
+  color: $muted;
+}

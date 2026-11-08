@@ -1,0 +1,28 @@
+// NFP primitives / semantic colors (from the design system)
+$burgundy: #8f1d2c;      // brand/burgundy: navigation
+$wine: #7b1726;          // brand/wine: filled actions
+$gold: #b99746;
+$ivory: #f7f4ee;
+$sand: #dccba5;
+$footer-sand: #dbcaa4;
+$white: #fff;
+$charcoal: #141414;
+$heading: #1f1f1f;
+$ink: #202020;
+$body: #383536;
+$muted: #77716c;
+$subtle: #c4c4c4;
+$input-border: #d6d6d6;
+$divider: #d9d2c6;
+$surface: #f4f4f4;
+
+// Dimensions
+$container: 1520px;
+$header-h: 80px;
+$section-gap: 120px;
+$r-sm: 8px;
+$r-md: 16px;
+$r-lg: 20px;
+$bp: 900px;
+
+@mixin mobile { @media (max-width: $bp) { @content; } }

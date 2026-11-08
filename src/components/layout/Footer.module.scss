@@ -1,0 +1,103 @@
+@use '../../styles/variables' as *;
+
+.footer {
+  background: $charcoal;
+  color: $white;
+}
+
+.inner {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 56px 24px;
+  min-height: 272px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.brand img {
+  height: 48px;
+  width: auto;
+}
+
+.about {
+  font-size: 14px;
+  color: $subtle;
+  max-width: 400px;
+  margin-bottom: 24px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  background: $sand;
+  color: $wine;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: $r-sm;
+}
+
+.col h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: $white;
+  margin-bottom: 20px;
+}
+
+.col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  font-size: 14px;
+  color: $subtle;
+}
+
+.col li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.col a:hover {
+  color: $gold;
+}
+
+.bar {
+  background: $wine;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+}
+
+.barInner {
+  width: 100%;
+  max-width: $container;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+}
+
+.social {
+  display: flex;
+  gap: 20px;
+}

@@ -1,0 +1,87 @@
+@use '../../styles/variables' as *;
+
+.header {
+  background: $burgundy;
+  color: $white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.inner {
+  max-width: $container;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: $header-h;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.brand img {
+  height: 44px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  gap: 40px;
+  font-size: 14px;
+  @include mobile {
+    display: none;
+  }
+}
+
+.nav a:hover {
+  color: $sand;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  font-size: 14px;
+}
+
+.lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 16px;
+  background: $white;
+  color: $wine;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: $r-sm;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: $ivory;
+}
+
+@include mobile {
+  .lang {
+    display: none;
+  }
+  .btn {
+    height: 44px;
+  }
+}
