@@ -25,4 +25,7 @@ $r-md: 16px;
 $r-lg: 20px;
 $bp: 900px;
 
+// Transition
+$linkTransition: all ease-in-out 0.3s;
+
 @mixin mobile { @media (max-width: $bp) { @content; } }

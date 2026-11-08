@@ -74,8 +74,13 @@
   gap: 10px;
 }
 
-.col a:hover {
-  color: $gold;
+.col a {
+  color: $white;
+  transition: $linkTransition;
+  &:hover{
+    color: $gold;
+  }
+
 }
 
 .bar {
@@ -100,4 +105,12 @@
 .social {
   display: flex;
   gap: 20px;
+  a{
+    color: $white;
+    transition: $linkTransition;
+
+    &:hover{
+      color: $footer-sand;
+    }
+  }
 }

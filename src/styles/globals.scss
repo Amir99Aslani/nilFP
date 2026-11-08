@@ -9,12 +9,19 @@ html {
 }
 
 body {
-  margin: 0;
-  background: $white;
-  color: $body;
-  font-size: 16px;
-  line-height: 1.7;
-  font-family: var(--font-peyda, var(--font-open-sans)), 'Open Sans', system-ui, sans-serif;
+  margin: 0; background: $white; color: $body; font-size: 16px; line-height: 1.7;
+  font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
+}
+
+// Persian and Urdu use Peyda
+html[lang='fa'] body,
+html[lang='ur'] body {
+  font-family: var(--font-peyda), system-ui, sans-serif;
+}
+
+// Chinese: system CJK fonts for now
+html[lang='zh'] body {
+  font-family: var(--font-open-sans), 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
 }
 
 h1, h2, h3, p {

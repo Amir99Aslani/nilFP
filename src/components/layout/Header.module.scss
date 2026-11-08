@@ -37,13 +37,17 @@
   display: flex;
   gap: 40px;
   font-size: 14px;
+
   @include mobile {
     display: none;
   }
-}
-
-.nav a:hover {
-  color: $sand;
+  a{
+    color: $white;
+    transition: $linkTransition;
+  }
+  a:hover {
+    color: $sand;
+  }
 }
 
 .right {
