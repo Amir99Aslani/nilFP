@@ -15,6 +15,9 @@ const icons = { car: FaCar, food: FaAppleAlt, machinery: FaTractor, solar: FaSol
 export default function HomePage() {
 
   const { hero, intro, activities, trust, process, cta, faq } = home;
+
+
+
   return (
       <>
         <section className={`${s.hero} ${s.wrap} home`}>

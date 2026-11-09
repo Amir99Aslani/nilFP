@@ -6,11 +6,19 @@
 
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
-  margin: 0; background: $white; color: $body; font-size: 16px; line-height: 1.7;
+  margin: 0;
+  background: $white;
+  color: $body;
+  font-size: 16px;
+  line-height: 1.7;
   font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
+  width: 100%;
+  min-height: 100%;
 }
 
 // Persian and Urdu use Peyda

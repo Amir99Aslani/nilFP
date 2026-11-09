@@ -1,0 +1,95 @@
+$bg: #0b0b0b;
+$fg: #dedede;
+$accent: #ffffff;
+
+.intro {
+  position: fixed;
+  inset: 0;
+  background: $bg;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.elephant {
+  position: absolute;
+  width: min(70vw, 900px);
+  height: auto;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+// pieces stay hidden until GSAP animates them (no flash on first paint)
+.piece {
+  opacity: 0;
+}
+
+.brand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  pointer-events: none;
+}
+
+.logo {
+  width: clamp(72px, 9vw, 120px);
+  height: auto;
+  opacity: 0;
+}
+
+.textWrap {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  color: $fg;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  min-height: 1.2em;
+}
+
+.cursor {
+  width: 3px;
+  height: 1em;
+  margin-left: 0.15em;
+  background: $accent;
+  animation: blink 0.8s steps(1) infinite;
+}
+
+.line {
+  width: min(220px, 40vw);
+  height: 2px;
+  background: $accent;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.skip {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: $fg;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

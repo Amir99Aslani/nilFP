@@ -288,6 +288,9 @@
   justify-content: space-between;
   gap: 20px;
   text-align: center;
+  width: 100%;
+  overflow-x: hidden;
+
   @include mobile {
     grid-template-columns: 1fr 1fr;
   }
