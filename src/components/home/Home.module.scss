@@ -328,8 +328,27 @@
 /* CTA */
 .cta {
   position: relative;
-  padding: $section-gap 0;
-  text-align: center;
+  overflow: hidden; // important: scattered pieces start outside the section
+  min-height: 900px;
+}
+
+.ctaPuzzle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(92%, 1100px);
+  height: auto;
+  pointer-events: none;
+  fill: #dedede; // elephant color, change to fit your CTA background
+}
+
+.ctaBody {
+  position: absolute;
+  z-index: 1; // keeps the text above the elephant
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
 }
 
 .ctaBg {
@@ -340,10 +359,6 @@
   width: 700px;
   max-width: 100%;
   object-fit: contain;
-}
-
-.ctaBody {
-  position: relative;
 }
 
 .ctaBody h2 {

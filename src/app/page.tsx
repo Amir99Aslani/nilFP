@@ -9,6 +9,7 @@ import { images } from '@/content/images';
 import { home } from '@/content/home';
 import FaqList from '@/components/home/FaqList';
 import s from '../components/home/Home.module.scss';
+import CtaSection from "@/components/home/CtaSection";
 
 const icons = { car: FaCar, food: FaAppleAlt, machinery: FaTractor, solar: FaSolarPanel, truck: FaTruck, parts: FaCog };
 
@@ -99,14 +100,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={s.cta}>
-          <img className={s.ctaBg} src={images.elephant} alt=""/>
-          <div className={`${s.ctaBody} ${s.wrap}`}>
-            <h2 className={s.h2}>{cta.title}</h2>
-            <p>{cta.text}</p>
-            <Link href="/contact" className={`${s.btn} ${s.primary}`}>{cta.button}</Link>
-          </div>
-        </section>
+        <CtaSection cta={cta}/>
 
         <section className={`${s.faq} ${s.wrap}`}>
           <div className={s.faqGrid}>
