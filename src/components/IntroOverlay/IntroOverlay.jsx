@@ -27,7 +27,7 @@ function prefersReducedMotion() {
     );
 }
 
-export default function IntroOverlay({onFinish, logo, zIndex = 9999}) {
+export default function IntroOverlay({onFinish, onReveal, logo, zIndex = 9999}) {
     const rootRef = useRef(null);
     const svgRef = useRef(null);
     const logoRef = useRef(null);
@@ -36,20 +36,24 @@ export default function IntroOverlay({onFinish, logo, zIndex = 9999}) {
 
     const finishedRef = useRef(false);
     const onFinishRef = useRef(onFinish);
+    const onRevealRef = useRef(onReveal);
     const tlRef = useRef(null);
 
     useEffect(() => {
         onFinishRef.current = onFinish;
-    }, [onFinish]);
+        onRevealRef.current = onReveal;
+    }, [onFinish, onReveal]);
 
     const finish = () => {
         if (finishedRef.current) return;
         finishedRef.current = true;
+        onRevealRef.current?.();
         onFinishRef.current?.();
     };
 
     const skip = () => {
         tlRef.current?.kill();
+        onRevealRef.current?.(); // show the page right away, it appears under the fading overlay
         gsap.to(rootRef.current, {
             opacity: 0,
             duration: 0.35,
@@ -143,7 +147,10 @@ export default function IntroOverlay({onFinish, logo, zIndex = 9999}) {
                 T.lineIn
             );
 
-            // 6) Whole overlay fades out
+            // 6) The page is revealed (hero starts animating) exactly when the overlay starts to fade
+            tl.call(() => onRevealRef.current?.(), undefined, T.overlayFade);
+
+            // 7) Whole overlay fades out
             tl.to(
                 rootRef.current,
                 {opacity: 0, duration: T.overlayFadeDuration, ease: "power1.inOut"},

@@ -88,17 +88,62 @@
   border-radius: 0;
 }
 
+.heroParallax {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.heroParallax picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroParallax .img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;   // tweak to keep the ship in frame
+  border-radius: 0;
+  transform: scale(1.08);     // resting state, also what reduced-motion users see
+  will-change: transform;
+}
+
 .heroCard {
   position: absolute;
   right: 0;
   bottom: 0;
   width: min(50%, 840px);
-  background: transparent;
-  padding: 0 32px;
+  background: $hero-bg;       // the "cut-out": the panel itself is the notch
+  padding: 32px 32px 28px;
   border-top-left-radius: $r-lg;
+  will-change: transform;
   @include mobile {
     width: 92%;
     padding: 20px;
+  }
+
+  // Curved inner corners so the notch looks cut out of the photo
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: $corner;
+    height: $corner;
+    pointer-events: none;
+    background: radial-gradient(circle at 0 0, transparent $corner, $hero-bg calc(#{$corner} + 0.5px));
+  }
+
+  &::before {
+    left: -$corner;
+    bottom: 0;
+  }
+
+  &::after {
+    right: 0;
+    top: -$corner;
   }
 }
 
@@ -118,6 +163,7 @@
   font-size: 16px;
   margin-bottom: 28px;
 }
+
 
 /* Intro: 700 text + 72 gap + 748 image */
 .intro {
@@ -451,6 +497,7 @@
 /* FAQ: 687 + 85 + 748 */
 .faq {
   padding: 0 24px $section-gap;
+  margin-top: 50px;
 }
 
 .faqGrid {

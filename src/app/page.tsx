@@ -11,6 +11,7 @@ import FaqList from '@/components/home/FaqList';
 import s from '../components/home/Home.module.scss';
 import CtaSection from "@/components/home/CtaSection";
 import ProcessSection from "@/components/home/ProcessSection";
+import HeroSection from "@/components/home/HeroSection";
 
 const icons = {car: FaCar, food: FaAppleAlt, machinery: FaTractor, solar: FaSolarPanel, truck: FaTruck, parts: FaCog};
 
@@ -21,20 +22,8 @@ export default function HomePage() {
 
     return (
         <>
-            <section className={`${s.hero} ${s.wrap} home`}>
-                <h1>{hero.title}</h1>
-                <div className={s.heroMedia}>
-                    <img className={s.img} src={images.hero} alt=""/>
-                    <div className={s.heroCard}>
-                        <h2><span>NFP</span>{hero.cardTitle}</h2>
-                        <p>{hero.text}</p>
-                        <div className={s.btnRow}>
-                            <Link href="/about" className={`${s.btn} ${s.outline}`}>{hero.about}</Link>
-                            <Link href="/contact" className={`${s.btn} ${s.primary}`}>{hero.cta}</Link>
-                        </div>
-                    </div>
-                </div>
-            </section>
+
+            <HeroSection hero={hero}/>
 
             <section className={`${s.intro} ${s.wrap}`}>
                 <div className={s.introGrid}>
