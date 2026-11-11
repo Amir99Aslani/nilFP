@@ -1,5 +1,5 @@
 export const home = {
-  hero: { title: 'A Broader Vision for Global Trade Opportunities', cardTitle: 'International Logistics & Transportation', text: 'Nil Farasoye Pars provides a platform to explore international transportation solutions and connect businesses across global markets.', about: 'About the Company', cta: 'Submit a Partnership Request' },
+  hero: { title: 'A Broader Vision for Global Trade Opportunities', cardTitle: 'International Logistics & Transportation', text: 'Nil Farasoye Pars provides a platform to explore \n international transportation solutions and connect businesses across global markets.', about: 'About the Company', cta: 'Submit a Partnership Request' },
   intro: { title: 'Business Connections with a Vision', text: 'Nil Farasoye Pars presents this website as a starting point for connecting with buyers, suppliers, and businesses interested in collaboration. Our goal is to introduce business capabilities and provide a platform for dialogue with business professionals. Detailed information about our business activities and company track record will be completed once officially verified.', about: 'About NFP', cta: 'Collaboration Opportunities' },
   activities: {
     title: 'Exploring NFP’s Business Activities',

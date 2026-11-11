@@ -92,9 +92,9 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: min(55%, 840px);
-  background: $white;
-  padding: 40px 40px 32px;
+  width: min(50%, 840px);
+  background: transparent;
+  padding: 0 32px;
   border-top-left-radius: $r-lg;
   @include mobile {
     width: 92%;
@@ -228,7 +228,8 @@
 
 /* Container showcase: 1520 x 700, text column 515 */
 .trust {
-  padding: $section-gap 24px;
+  padding: 0 24px;
+  position: relative;
 }
 
 .trustGrid {
@@ -239,6 +240,10 @@
   @include mobile {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+
+  .textContainer {
+    padding: 0 0;
   }
 }
 
@@ -280,35 +285,107 @@
 
 /* Process: 5 x 288, 20 gap */
 .steps {
+  --hook-h: 82px;
+  position: relative;
   margin-top: 64px;
-  padding-top: 48px;
-  border-top: 1px solid $white;
+  padding-top: 75px; // فاصله ریل تا بالای کارت در طراحی
+  border-top: 1px solid $white; // خود ریل
   display: grid;
-  grid-template-columns: repeat(5, 288px);
-  justify-content: space-between;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 20px;
   text-align: center;
-  width: 100%;
-  overflow-x: hidden;
-
   @include mobile {
     grid-template-columns: 1fr 1fr;
+    padding-top: 48px;
   }
 }
 
+.hook {
+  position: absolute;
+  z-index: 2;
+  top: -1px;
+  left: 0;
+  width: 72px;
+  visibility: hidden;
+  pointer-events: none;
+  @include mobile {
+    display: none;
+  }
+}
+
+.trolley {
+  position: absolute;
+  z-index: 1;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-radius: 3px;
+  background: $white;
+}
+
+.hookClip {
+  overflow: hidden;
+  height: calc(var(--hook-h) + 24px);
+}
+
+// طناب‌ها هنگام بالا رفتن زیر ریل پنهان می‌شوند
+.hookSwing {
+  width: 35px;
+  margin: 0 auto;
+  transform-origin: 50% 0;
+}
+
+.hookRope {
+  height: 50px;
+  background-repeat: repeat-y;
+  background-position: top center;
+  background-size: 100% auto;
+}
+
+.hookSwing img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .step {
+  position: relative;
   background: $white;
   color: $body;
   border-radius: $r-md;
-  padding: 16px;
   min-height: 334px;
+  cursor: pointer;
+  z-index: 5;
+  --hook-w: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.step:focus-visible {
+  outline: 2px solid $gold;
+  outline-offset: 4px;
 }
 
 .step img {
-  height: 140px;
+  height: 160px;
   width: 100%;
   object-fit: contain;
   margin-bottom: 16px;
+  filter: grayscale(1);
+  transition: filter .5s ease;
+}
+
+.step[data-active='true'] img {
+  filter: grayscale(0);
+}
+
+@include mobile {
+  .step img {
+    filter: none;
+  }
 }
 
 .step h3 {
@@ -348,7 +425,7 @@
   z-index: 1; // keeps the text above the elephant
   top: 50%;
   left: 50%;
-  transform: translate(-50% , -50%);
+  transform: translate(-50%, -50%);
 }
 
 .ctaBg {
