@@ -567,3 +567,16 @@
   font-size: 14px;
   color: $muted;
 }
+
+
+// Slide-in elements start 56px to the side. Without this the page briefly gets a horizontal scrollbar.
+.intro,
+.trust,
+.faq {
+  overflow-x: clip;
+}
+
+// Digits keep the same width while counting, so the stats don't jitter
+.stats strong {
+  font-variant-numeric: tabular-nums;
+}
