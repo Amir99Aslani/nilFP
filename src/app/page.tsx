@@ -13,6 +13,7 @@ import CtaSection from "@/components/home/CtaSection";
 import ProcessSection from "@/components/home/ProcessSection";
 import HeroSection from "@/components/home/HeroSection";
 import PageAnimations from "@/components/home/PageAnimations";
+import ActivitiesGrid from "@/components/home/ActivitiesGrid";
 
 const icons = {car: FaCar, food: FaAppleAlt, machinery: FaTractor, solar: FaSolarPanel, truck: FaTruck, parts: FaCog};
 
@@ -45,18 +46,13 @@ export default function HomePage() {
                 <div className={s.wrap}>
                     <h2 className={s.h2} data-reveal="up">{activities.title}</h2>
                     <p className={s.lead} data-reveal="up">{activities.text}</p>
-                    <div className={s.grid6} data-stagger="grid">
-                        {activities.items.map((a) => {
-                            const Icon = icons[a.icon as keyof typeof icons];
-                            return (
-                                <div key={a.title} className={s.cell}>
-                                    <Icon size={26}/>
-                                    <h3>{a.title}</h3>
-                                    <p>{a.text}</p>
-                                </div>
-                            );
-                        })}
-                    </div>
+
+                    <ActivitiesGrid
+                        items={activities.items}
+                        showAll={activities.showAll}
+                        showLess={activities.showLess}
+                    />
+
                 </div>
             </section>
 

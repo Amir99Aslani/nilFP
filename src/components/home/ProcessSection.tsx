@@ -15,6 +15,7 @@ type Props = {
 
 const ROPE_LIFT = 4; // rope length (px) while the hook is pulled up and travelling
 const ROPE_OVERLAP = 6; // how far the hook tip dips into the top of the card when it grabs it
+const MOBILE = '(max-width: 900px)'; // [responsive] keep in sync with $bp
 
 // --- Speed -----------------------------------------------------------------
 // 1 = old speed (~2.3s per move). 1.5 = about 1s. Raise it to make the hook even faster.
@@ -34,6 +35,7 @@ export default function ProcessSection({ process }: Props) {
 
     const sectionRef = useRef<HTMLElement>(null);
     const railRef = useRef<HTMLDivElement>(null);
+    const trackRef = useRef<HTMLDivElement>(null); // [responsive] swipeable track on phones
     const hookRef = useRef<HTMLDivElement>(null);
     const swingRef = useRef<HTMLDivElement>(null);
     const ropeRef = useRef<HTMLDivElement>(null);
@@ -44,6 +46,7 @@ export default function ProcessSection({ process }: Props) {
     const activeRef = useRef(active);
     const enabled = useRef({ on: false, animate: true });
     const ready = useRef(false); // false until the entrance (cards -> hook -> first grab) has played
+    const raf = useRef(0); // [responsive]
 
     const allCards = () => cardRefs.current.filter(Boolean) as HTMLDivElement[];
 
@@ -132,13 +135,54 @@ export default function ProcessSection({ process }: Props) {
             );
     };
 
+    // [responsive] Phones: the cards are a swipeable track, the hook stays in the centre
+    const onTrackScroll = () => {
+        if (!window.matchMedia(MOBILE).matches) return;
+        cancelAnimationFrame(raf.current);
+        raf.current = requestAnimationFrame(() => {
+            const track = trackRef.current;
+            if (!track) return;
+            const center = track.scrollLeft + track.clientWidth / 2;
+            let best = 0;
+            let bestDist = Infinity;
+            cardRefs.current.forEach((c, i) => {
+                if (!c) return;
+                const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+                if (d < bestDist) {
+                    bestDist = d;
+                    best = i;
+                }
+            });
+            setActive(best);
+        });
+    };
+
+    // [responsive] dots
+    const goTo = (i: number) => {
+        const track = trackRef.current;
+        const card = cardRefs.current[i];
+        if (!track || !card) return;
+        track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' });
+    };
+
     useEffect(() => {
         activeRef.current = active;
         if (enabled.current.on && ready.current) place(active, !enabled.current.animate);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [active]);
 
-    useEffect(() => () => timeline.current?.kill(), []);
+    // [responsive] on phones the track starts at the first card
+    useEffect(() => {
+        if (window.matchMedia(MOBILE).matches) setActive(0);
+    }, []);
+
+    useEffect(
+        () => () => {
+            timeline.current?.kill();
+            cancelAnimationFrame(raf.current); // [responsive]
+        },
+        []
+    );
 
     // Desktop only: entrance + resize handling
     useGSAP(
@@ -221,7 +265,7 @@ export default function ProcessSection({ process }: Props) {
                 <p className={s.lead}>{text}</p>
 
                 <div ref={railRef} className={s.steps}>
-                    {/* Crane trolley + hook (decorative, desktop only) */}
+                    {/* Crane trolley + hook (decorative) */}
                     <div ref={hookRef} className={s.hook} aria-hidden="true">
                         <span className={s.trolley} />
                         <div ref={swingRef} className={s.hookSwing}>
@@ -234,33 +278,49 @@ export default function ProcessSection({ process }: Props) {
                         </div>
                     </div>
 
+                    {/* [responsive] desktop: display: contents (cards stay in the grid). phones: swipeable track */}
+                    <div ref={trackRef} className={s.track} onScroll={onTrackScroll}>
+                        {steps.map((step, i) => (
+                            <div
+                                key={step.title}
+                                ref={(el) => {
+                                    cardRefs.current[i] = el;
+                                }}
+                                className={s.step}
+                                tabIndex={0}
+                                data-active={i === active}
+                                aria-current={i === active ? 'step' : undefined}
+                                onPointerEnter={() => setActive(i)}
+                                onFocus={() => setActive(i)}
+                                onClick={() => setActive(i)}
+                                onKeyDown={(e) => {
+                                    const next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : i;
+                                    if (next !== i && next >= 0 && next < count) cardRefs.current[next]?.focus();
+                                }}
+                            >
+                                <img src={images.process[i]} alt="" />
+                                <h3>{step.title}</h3>
+                                <p>{step.text}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* [responsive] pagination dots, phones only */}
+                <div className={s.dots}>
                     {steps.map((step, i) => (
-                        <div
+                        <button
                             key={step.title}
-                            ref={(el) => {
-                                cardRefs.current[i] = el;
-                            }}
-                            className={s.step}
-                            tabIndex={0}
+                            type="button"
+                            className={s.dot}
                             data-active={i === active}
-                            aria-current={i === active ? 'step' : undefined}
-                            onPointerEnter={() => setActive(i)}
-                            onFocus={() => setActive(i)}
-                            onClick={() => setActive(i)}
-                            onKeyDown={(e) => {
-                                const next = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : i;
-                                if (next !== i && next >= 0 && next < count) cardRefs.current[next]?.focus();
-                            }}
-                        >
-                            <img src={images.process[i]} alt="" />
-                            <h3>{step.title}</h3>
-                            <p>{step.text}</p>
-                        </div>
+                            aria-label={`${i + 1} / ${count}: ${step.title}`}
+                            aria-current={i === active ? 'step' : false}
+                            onClick={() => goTo(i)}
+                        />
                     ))}
                 </div>
             </div>
         </section>
     );
 }
-
-

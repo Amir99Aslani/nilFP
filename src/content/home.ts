@@ -12,6 +12,8 @@ export const home = {
       { icon: 'truck', title: 'Logistics & Transportation', text: 'Coordinating transportation solutions and supporting the movement of goods.' },
       { icon: 'parts', title: 'Heavy Machinery Parts', text: 'Sourcing spare parts and technical components for machinery and equipment.' },
     ],
+    showAll: 'Show all',
+    showLess: 'Show less',
   },
   trust: {
     title: 'Trust Beyond Borders',
@@ -47,6 +49,7 @@ export const home = {
       { q: 'Can new import and export opportunities be explored?', a: 'Yes. Send us your product and target market, and we will explore the opportunity with you.' },
     ],
   },
+
 };
 
 export const nav = { home: 'Home', services: 'Services', about: 'About Us', contact: 'Contact Us', cta: 'Partnership Request' };

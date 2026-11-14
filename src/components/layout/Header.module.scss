@@ -1,92 +1,29 @@
 @use '../../styles/variables' as *;
 
-.header {
-  background: $burgundy;
-  color: $white;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
+.header { background: $burgundy; color: $white; position: sticky; top: 0; z-index: 10; }
+.inner { max-width: $container + 48px; margin: 0 auto; padding: 0 24px; height: $header-h; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+.brand img { height: 44px; width: auto; }
+.nav { display: flex; gap: 40px; font-size: 14px; }
+.nav a:hover { color: $sand; }
+.right { display: flex; align-items: center; gap: 32px; font-size: 14px; }
+.lang { display: flex; align-items: center; gap: 8px; }
+.btn { display: inline-flex; align-items: center; height: 48px; padding: 0 16px; background: $white; color: $wine; font-weight: 700; font-size: 14px; line-height: 24px; border-radius: $r-sm; white-space: nowrap; }
+.btn:hover { background: $ivory; }
 
-.inner {
-  max-width: $container;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: $header-h;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-}
-
-.brand img {
-  height: 44px;
-  width: auto;
-}
-
-.nav {
-  display: flex;
-  gap: 40px;
-  font-size: 14px;
-
-  @include mobile {
-    display: none;
-  }
-  a{
-    color: $white;
-    transition: $linkTransition;
-    font-weight: 500;
-  }
-  a:hover {
-    color: $sand;
-  }
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  font-size: 14px;
-}
-
-.lang {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  height: 48px;
-  padding: 0 16px;
-  background: $white;
-  color: $wine;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 24px;
-  border-radius: $r-sm;
-  white-space: nowrap;
-}
-
-.btn:hover {
-  background: $ivory;
-}
+// Mobile menu (hidden on desktop)
+.burger { display: none; background: none; border: 0; padding: 4px; color: inherit; cursor: pointer; }
+.panel { display: none; }
 
 @include mobile {
-  .lang {
-    display: none;
-  }
-  .btn {
-    height: 44px;
-  }
+  .inner { height: 56px; padding: 0 16px; }
+  .brand { font-size: 16px; gap: 8px; }
+  .brand img { height: 34px; }
+  .nav, .btn { display: none; }
+  .right { gap: 16px; }
+  .burger { display: inline-flex; }
+  .panel { position: absolute; top: 100%; left: 0; right: 0; background: $burgundy; padding: 8px 16px 20px; border-top: 1px solid rgba(255, 255, 255, .15); }
+  .panel[data-open='true'] { display: grid; gap: 4px; }
+  .panel a { padding: 12px 0; font-size: 16px; }
+  .panelCta { margin-top: 8px; padding: 0 16px !important; display: flex; align-items: center; justify-content: center; height: 48px; background: $white; color: $wine; font-weight: 700; border-radius: $r-sm; }
 }

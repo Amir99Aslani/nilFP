@@ -105,9 +105,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 45%;   // tweak to keep the ship in frame
+  object-position: 50% 45%; // tweak to keep the ship in frame
   border-radius: 0;
-  transform: scale(1.08);     // resting state, also what reduced-motion users see
+  transform: scale(1.08); // resting state, also what reduced-motion users see
   will-change: transform;
 }
 
@@ -116,7 +116,7 @@
   right: 0;
   bottom: 0;
   width: min(50%, 840px);
-  background: $hero-bg;       // the "cut-out": the panel itself is the notch
+  background: $hero-bg; // the "cut-out": the panel itself is the notch
   padding: 32px 32px 28px;
   border-top-left-radius: $r-lg;
   will-change: transform;
@@ -579,4 +579,308 @@
 // Digits keep the same width while counting, so the stats don't jitter
 .stats strong {
   font-variant-numeric: tabular-nums;
+}
+
+
+/* ===================================================================
+   RESPONSIVE: paste at the END of Home.module.scss
+   Measured from the 390px iPhone design (16px side padding, 56px gaps)
+   =================================================================== */
+
+// Desktop defaults for the new elements
+.track {
+  display: contents;
+}
+
+.dots {
+  display: none;
+}
+
+.showAll {
+  display: none;
+}
+
+@include mobile {
+  .wrap {
+    padding: 0 16px;
+  }
+  .h2 {
+    font-size: 22px;
+    line-height: 1.35;
+  }
+  .lead {
+    font-size: 14px;
+  }
+  .btn {
+    height: auto;
+    min-height: 46px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: center;
+  }
+  .btnRow {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+  .btnRow .btn {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Hero: the card goes below the picture */
+  .hero {
+    padding: 32px 16px 56px;
+  }
+  .hero h1 {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+  .heroMedia {
+    height: auto;
+    overflow: visible;
+    border-radius: 0;
+    text-align: center;
+  }
+  .heroParallax {
+    position: relative;
+    inset: auto;
+    height: 250px;
+    overflow: hidden;
+    border-radius: $r-lg;
+    transform: none !important;
+  }
+  .heroParallax .img {
+    transform: scale(1.08) !important;
+  }
+  .heroCard {
+    position: static;
+    width: 100%;
+    padding: 24px 0 0;
+    background: transparent;
+    border-radius: 0;
+    transform: none !important;
+  }
+  .heroCard::before, .heroCard::after {
+    display: none;
+  }
+  .heroCard h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .heroCard p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+
+  /* Intro: picture first */
+  .intro {
+    padding-bottom: 56px;
+  }
+  .introGrid {
+    gap: 24px;
+  }
+  .introImg {
+    order: -1;
+    height: 214px;
+  }
+  .introGrid h2 {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .introGrid p {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  /* Dark bands */
+  .dark {
+    padding: 56px 0;
+  }
+  .dark .h2 {
+    margin-bottom: 16px;
+  }
+
+  /* Activities: stacked cards, 3 visible + "Show all" */
+  .grid6 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .cell {
+    border: 1px solid $gold !important;
+    border-radius: $r-md;
+    background: $white;
+    color: $body;
+    padding: 20px;
+  }
+  .cell:last-child {
+    border-bottom: 1px solid $gold !important;
+  }
+  .cell svg {
+    margin-bottom: 12px;
+  }
+  .grid6[data-expanded='false'] .cell:nth-child(n+4) {
+    display: none;
+  }
+  .showAll {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 24px auto 0;
+    padding: 8px 12px;
+    border: 0;
+    background: none;
+    color: $white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* Trust */
+  .trust {
+    padding: 0 16px;
+  }
+  .trustGrid {
+    gap: 24px;
+  }
+  .trustImg {
+    height: 260px;
+  }
+  .trustGrid h2 {
+    margin-bottom: 12px;
+  }
+  .trustGrid p {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+    margin-bottom: 32px;
+  }
+  .stats span {
+    font-size: 16px;
+  }
+  .trustGrid .btn {
+    width: 100%;
+  }
+
+  /* Process: one card at a time, hook stays in the centre */
+  .steps {
+    display: block;
+    margin-top: 40px;
+    padding-top: 88px;
+  }
+  .track {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+  .hook {
+    display: block;
+    visibility: visible;
+    left: 50%;
+    margin-left: -36px;
+  }
+  .hookRope {
+    height: 42px;
+  }
+  .step {
+    flex: 0 0 100%;
+    min-height: 0;
+    padding: 24px 16px;
+    scroll-snap-align: center;
+  }
+  .step img {
+    height: 130px;
+    margin-bottom: 12px;
+    filter: grayscale(1);
+  }
+  .step[data-active='true'] img {
+    filter: grayscale(0);
+  }
+  .step h3 {
+    font-size: 18px;
+  }
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: $muted;
+    cursor: pointer;
+    transition: background .25s;
+  }
+  .dot[data-active='true'] {
+    background: $white;
+  }
+
+  /* CTA */
+  .cta {
+    min-height: 420px;
+  }
+  .ctaPuzzle {
+    width: 100%;
+  }
+  .ctaBody {
+    width: calc(100% - 32px);
+    text-align: center;
+  }
+  .ctaBody h2 {
+    font-size: 22px;
+  }
+  .ctaBody p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* FAQ: list first, picture last */
+  .faq {
+    padding: 0 16px 56px;
+    margin-top: 0;
+  }
+  .faqGrid {
+    gap: 24px;
+  }
+  .faqImg {
+    order: 2;
+    height: 215px;
+  }
+  .faqList h2 {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .faqList details {
+    padding: 0 16px;
+  }
+  .faqList details[open] {
+    padding-bottom: 16px;
+  }
+  .faqList summary {
+    min-height: 72px;
+    gap: 16px;
+  }
 }
