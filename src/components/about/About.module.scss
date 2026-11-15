@@ -1,0 +1,789 @@
+@use '../../styles/variables' as *;
+
+/* Measured from the About frames: desktop 1920 (1520 container) and phone 390.
+   Tiers:  > 1279  desktop (as designed)
+           901-1279 laptop / small desktop / iPad landscape (same layout, scaled)
+           601-900  tablet (phone layout, wider)
+           <= 600   phone (390 design)
+           <= 359   small phone                                              */
+
+@mixin laptop {
+  @media (min-width: 901px) and (max-width: 1279px) {
+    @content;
+  }
+}
+
+@mixin narrow {
+  @media (min-width: 901px) and (max-width: 1060px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 601px) and (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin tiny {
+  @media (max-width: 359px) {
+    @content;
+  }
+}
+
+/* Page container (own class, longhands only: Home's .wrap uses `margin`/`padding`
+   shorthands and used to wipe out the spacing of any section that shared it) */
+.wrap {
+  max-width: $container;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ===== Intro + banner ===== */
+.intro {
+  margin-top: 90px;
+  text-align: center;
+}
+
+.introTitle {
+  font-size: clamp(26px, 2.9vw, 40px);
+  font-weight: 800;
+  line-height: 1.3;
+  color: #000;
+}
+
+.descRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px 32px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid $input-border;
+  text-align: left;
+}
+
+.descText {
+  flex: 1 1 420px;
+  max-width: 748px;
+  font-size: 20px;
+  text-align: justify;
+}
+
+.descBtns {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.banner {
+  aspect-ratio: 1520 / 500;
+  margin-top: 32px;
+  border-radius: $r-lg;
+  overflow: hidden;
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Meaningful relationships ===== */
+.meaning {
+  margin-top: $section-gap;
+}
+
+.meaningInner {
+  max-width: 1262px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.meaningInner p {
+  font-size: 20px;
+}
+
+/* ===== Dark bands: principles + team ===== */
+.band {
+  background: $charcoal;
+  color: $white;
+  padding: 90px 0;
+  margin-top: $section-gap;
+  text-align: left;
+}
+
+.band h2 {
+  color: $white;
+}
+
+.pTop {
+  display: grid;
+  grid-template-columns: 877fr 571fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.pImg {
+  aspect-ratio: 877 / 450;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.pImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 23%;
+}
+
+.pTop h2 {
+  margin-bottom: 32px;
+}
+
+.pTop p {
+  font-size: 20px;
+  text-align: justify;
+  color: $subtle;
+}
+
+.pList {
+  margin-top: 32px;
+}
+
+.pRow {
+  display: grid;
+  grid-template-columns: 40px minmax(160px, 331px) 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 32px 0;
+  border-bottom: 1px solid $subtle;
+}
+
+.pNum {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: $gold;
+}
+
+.pRow h3 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: $white;
+}
+
+.pRow p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: $subtle;
+  text-align: justify;
+}
+
+/* ===== Areas of activity (light grid) ===== */
+.areas {
+  margin-top: $section-gap;
+}
+
+.areasHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.areasHead p {
+  font-size: 20px;
+  text-align: right;
+  max-width: 700px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid $gold;
+  border-radius: $r-md;
+  overflow: hidden;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  min-height: 184px;
+  border-right: 1px solid $gold;
+  border-bottom: 1px solid $gold;
+}
+
+.cell:nth-child(3n) {
+  border-right: 0;
+}
+
+.cell:nth-child(n+4) {
+  border-bottom: 0;
+}
+
+.cell svg {
+  color: $gold;
+  flex-shrink: 0;
+}
+
+.cell h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: $heading;
+}
+
+.cell p {
+  font-size: 16px;
+  color: $muted;
+}
+
+/* ===== Team ===== */
+.teamTitle {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.member img {
+  width: 100%;
+  aspect-ratio: 365 / 252;
+  object-fit: cover;
+  object-position: top;
+  border-radius: $r-md;
+  margin-bottom: 8px;
+}
+
+.member h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: $white;
+}
+
+.member p {
+  font-size: 16px;
+  color: $subtle;
+}
+
+/* ===== Vision ===== */
+.vision {
+  margin: $section-gap 0;
+}
+
+.visionGrid {
+  display: grid;
+  grid-template-columns: 829fr 619fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.visionImg {
+  aspect-ratio: 829 / 517;
+  border-radius: $r-md;
+  overflow: hidden;
+}
+
+.visionImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 46% 50%;
+}
+
+.visionText {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.visionText h2 {
+  margin-bottom: 16px;
+}
+
+.visionLead {
+  font-size: 20px;
+  text-align: justify;
+  margin-bottom: 16px;
+}
+
+.card {
+  background: $surface;
+  border-radius: $r-md;
+  padding: 32px 24px;
+  color: $ink;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: $ink;
+}
+
+.card p {
+  font-size: 16px;
+  line-height: 32px;
+  text-align: justify;
+}
+
+/* Phone-only extras */
+.showAll {
+  display: none;
+}
+
+.teamText {
+  display: none;
+}
+
+/* ===== Laptop / small desktop (901 - 1279): same layout, scaled ===== */
+@include laptop {
+  .intro {
+    margin-top: 64px;
+  }
+  .descText, .meaningInner p, .pTop p, .areasHead p, .visionLead {
+    font-size: 18px;
+  }
+  .meaning, .areas {
+    margin-top: 96px;
+  }
+  .band {
+    padding: 72px 0;
+    margin-top: 96px;
+  }
+  .vision {
+    margin: 96px 0;
+  }
+  .pTop {
+    gap: 48px;
+  }
+  .pTop h2 {
+    margin-bottom: 24px;
+  }
+  .pRow {
+    gap: 20px;
+    padding: 28px 0;
+  }
+  .pRow h3 {
+    font-size: 22px;
+  }
+  .pRow p {
+    font-size: 18px;
+  }
+  .cell {
+    padding: 20px;
+    min-height: 168px;
+  }
+  .cell h3 {
+    font-size: 18px;
+  }
+  .cell p {
+    font-size: 15px;
+  }
+  .teamGrid {
+    gap: 16px;
+  }
+  .member h3 {
+    font-size: 18px;
+  }
+  .member p {
+    font-size: 15px;
+  }
+  .visionGrid {
+    gap: 48px;
+  }
+  .card {
+    padding: 28px 22px;
+  }
+  .card p {
+    font-size: 15px;
+    line-height: 28px;
+  }
+}
+
+/* iPad landscape / narrow laptop (901 - 1060) */
+@include narrow {
+  .descText, .meaningInner p, .pTop p, .areasHead p, .visionLead, .pRow p {
+    font-size: 16px;
+  }
+  .pTop {
+    gap: 32px;
+  }
+  .pTop h2 {
+    margin-bottom: 16px;
+  }
+  .pRow {
+    grid-template-columns: 32px minmax(140px, 220px) 1fr;
+    gap: 16px;
+  }
+  .pRow h3 {
+    font-size: 19px;
+  }
+  .cell svg {
+    width: 36px;
+    height: 36px;
+  }
+  .cell h3 {
+    font-size: 16px;
+  }
+  .cell p {
+    font-size: 14px;
+  }
+  .member h3 {
+    font-size: 16px;
+  }
+  .member p {
+    font-size: 14px;
+  }
+  .visionGrid {
+    gap: 32px;
+  }
+  .card p {
+    font-size: 14px;
+    line-height: 26px;
+  }
+}
+
+/* ===== Phones and tablets (<= 900): the 390 layout ===== */
+@include mobile {
+  .wrap {
+    padding-inline: 16px;
+  }
+  .intro {
+    margin-top: 32px;
+  }
+  .introTitle {
+    font-size: 26px;
+    line-height: 1.45;
+  }
+  .descRow {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+  .descText {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .descBtns {
+    gap: 16px;
+  }
+  .descBtns > * {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .banner {
+    aspect-ratio: auto;
+    height: 250px;
+    margin-top: 4px;
+  }
+
+  .meaning {
+    margin-top: 56px;
+  }
+  .meaningInner {
+    gap: 20px;
+    align-items: stretch;
+  }
+  .meaningInner p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .meaningInner .btn, .meaningInner a {
+    width: 100%;
+  }
+
+  /* Dark bands: 32px top/bottom, 20px sides */
+  .band {
+    padding: 32px 0;
+    margin-top: 56px;
+  }
+  .band > div {
+    padding: 0 20px;
+  }
+  .pTop {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .pImg {
+    order: -1;
+    aspect-ratio: auto;
+    height: 194px;
+    border-radius: $r-lg;
+  }
+  .pTop h2 {
+    margin-bottom: 16px;
+  }
+  .pTop p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: $white;
+  }
+  .pList {
+    margin-top: 24px;
+  }
+  .pRow {
+    grid-template-columns: 28px 1fr;
+    gap: 8px 12px;
+    padding: 20px 0;
+    align-items: center;
+  }
+  .pNum {
+    font-size: 20px;
+  }
+  .pRow h3 {
+    font-size: 18px;
+  }
+  .pRow p {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* Areas */
+  .areas {
+    margin-top: 56px;
+  }
+  .areasHead {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .areasHead p {
+    font-size: 14px;
+    text-align: center;
+    max-width: none;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+  .cell {
+    border: 1px solid $gold !important;
+    border-radius: $r-md;
+    padding: 20px;
+    gap: 10px;
+    min-height: 0;
+  }
+  .cell svg {
+    width: 32px;
+    height: 32px;
+  }
+  .cell h3 {
+    font-size: 16px;
+  }
+  .cell p {
+    font-size: 14px;
+  }
+  .grid[data-expanded='false'] .cell:nth-child(n+4) {
+    display: none;
+  }
+  .showAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px auto 0;
+    padding: 8px 12px;
+    border: 0;
+    background: none;
+    color: $heading;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* Team */
+  .teamTitle {
+    margin-bottom: 16px;
+  }
+  .teamText {
+    display: block;
+    font-size: 14px;
+    line-height: 1.7;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .teamGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+  }
+  .member {
+    gap: 10px;
+  }
+  .member img {
+    aspect-ratio: auto;
+    height: 158px;
+    margin-bottom: 4px;
+  }
+  .member h3 {
+    font-size: 16px;
+  }
+  .member p {
+    font-size: 14px;
+  }
+
+  /* Vision: picture goes last */
+  .vision {
+    margin: 56px 0;
+  }
+  .visionGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .visionImg {
+    order: 2;
+    aspect-ratio: auto;
+    height: 215px;
+  }
+  .visionText {
+    gap: 12px;
+  }
+  .visionText h2 {
+    margin-bottom: 4px;
+  }
+  .visionLead {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .card {
+    padding: 24px 20px;
+    gap: 12px;
+  }
+  .card h3 {
+    font-size: 16px;
+  }
+  .card p {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+/* ===== Tablet (601 - 900): more room than a phone ===== */
+@include tablet {
+  .intro {
+    margin-top: 48px;
+  }
+  .introTitle {
+    font-size: 32px;
+  }
+  .descText {
+    font-size: 17px;
+  }
+  .banner {
+    height: 340px;
+  }
+  .meaningInner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .meaningInner p {
+    font-size: 17px;
+  }
+  .meaningInner .btn, .meaningInner a {
+    width: auto;
+    align-self: center;
+  }
+  .pTop p, .pRow p {
+    font-size: 16px;
+  }
+  .pImg {
+    height: 300px;
+  }
+  .pRow h3 {
+    font-size: 20px;
+  }
+  /* all six areas, two per row, no "Show all" */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid[data-expanded='false'] .cell:nth-child(n+4) {
+    display: flex;
+  }
+  .showAll {
+    display: none;
+  }
+  .cell h3 {
+    font-size: 17px;
+  }
+  .cell p {
+    font-size: 15px;
+  }
+  .teamText {
+    font-size: 16px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .teamGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .member img {
+    height: 170px;
+  }
+  .visionImg {
+    height: 320px;
+  }
+  .visionLead, .card p {
+    font-size: 16px;
+  }
+}
+
+/* ===== Small phones (<= 359) ===== */
+@include tiny {
+  .introTitle {
+    font-size: 22px;
+  }
+  .descBtns {
+    flex-direction: column;
+  }
+  .teamGrid {
+    gap: 20px 12px;
+  }
+  .member img {
+    height: 130px;
+  }
+  .member h3 {
+    font-size: 15px;
+  }
+}

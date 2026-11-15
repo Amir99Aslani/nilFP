@@ -8,4 +8,8 @@ export const images = {
   faq: '/images/homeImg/faq.webp',
   hookRope: '/images/homeImg/hook-rope.webp',
   hookBody: '/images/homeImg/hook-body.webp',
+  aboutHero: '/images/about/hero.png',
+  aboutPrinciples: '/images/about/principles.png',
+  aboutTeam: '/images/about/team.png',
+  aboutVision: '/images/about/vision.png',
 } as const;
