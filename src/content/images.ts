@@ -12,4 +12,10 @@ export const images = {
   aboutPrinciples: '/images/about/principles.png',
   aboutTeam: '/images/about/team.png',
   aboutVision: '/images/about/vision.png',
+  contactMap: '/images/contact/map.png',
+  contactArt: '/images/contact/container.png',
+  contactPin: '/images/contact/pin.svg',
+  productsHero: '/images/products/hero.png',
+  productsHeroMobile: '/images/products/hero-mobile.png',
+  productsBoxes: '/images/products/boxes.png',
 } as const;

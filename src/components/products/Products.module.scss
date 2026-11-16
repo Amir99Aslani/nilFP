@@ -1,0 +1,156 @@
+@use '../../styles/variables' as *;
+
+/* Measured from the Products frames: desktop 1920 (1520 container) and phone 390.
+   Tiers: >= 1280 desktop | 901-1279 laptop (same layout, scaled) | <= 900 phone / tablet */
+
+@mixin laptop { @media (min-width: 901px) and (max-width: 1279px) { @content; } }
+
+/* Own container: longhands only, so section margins are never overridden */
+.wrap { max-width: $container; margin-inline: auto; padding-inline: 24px; }
+.h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; line-height: 1.3; color: $heading; text-align: center; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 29px; border: 1px solid transparent; border-radius: $r-sm; font-size: 16px; font-weight: 700; line-height: 24px; white-space: nowrap; transition: opacity .2s; }
+.btn:hover { opacity: .9; }
+.outline { border-color: $wine; color: $wine; background: transparent; }
+.primary { border-color: $wine; background: $wine; color: $white; }
+.ghost { border-color: $white; color: $white; }
+.light { border-color: $white; background: $white; color: $charcoal; }
+
+/* ===== Hero ===== */
+.hero { background: var(--hero-bg) center bottom / cover no-repeat; padding: 90px 24px 159px; }
+.heroInner { max-width: $container; margin: 0 auto; }
+.heroText { display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+.heroText h1 { font-size: clamp(28px, 2.9vw, 40px); font-weight: 800; line-height: 1.3; color: #000; max-width: 1000px; }
+.heroText p { font-size: clamp(18px, 1.7vw, 24px); color: $body; max-width: 900px; }
+.heroBtns { display: flex; gap: 16px; }
+.boxes { display: flex; gap: 5px; width: min(925px, 100%); margin: 74px auto 0; }
+.box { position: relative; flex: 1 1 0; aspect-ratio: 180 / 197; overflow: hidden; }
+.box img { position: absolute; top: -36.95%; height: 160.1%; width: 525.66%; max-width: none; }
+
+/* ===== Areas of activity ===== */
+.areas { margin-top: $section-gap; }
+.toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 24px; margin-top: 52px; }
+.search { width: 362px; max-width: 100%; height: 56px; padding: 0 12px; border: 1px solid $body; border-radius: $r-sm; background: transparent; color: $body; font-family: inherit; font-size: 16px; }
+.search::placeholder { color: $muted; font-weight: 700; opacity: 1; }
+.search:focus-visible { outline: 2px solid $gold; outline-offset: 2px; }
+.tabs { display: flex; }
+.tab { height: 56px; padding: 0 29px; border: 1px solid $wine; border-left-width: 0; background: transparent; color: $wine; font-family: inherit; font-size: 16px; font-weight: 700; line-height: 24px; white-space: nowrap; cursor: pointer; transition: background .2s, color .2s; }
+.tab:first-child { border-left-width: 1px; border-radius: $r-sm 0 0 $r-sm; }
+.tab:last-child { border-radius: 0 $r-sm $r-sm 0; }
+.tab[data-active='true'] { background: $wine; color: $white; }
+.tab:focus-visible { outline: 2px solid $gold; outline-offset: 2px; position: relative; z-index: 1; }
+
+.gridWrap { margin-top: 52px; border: 1px solid $gold; border-radius: $r-md; overflow: hidden; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 -1px -1px 0; }
+.card { display: flex; flex-direction: column; min-width: 0; border-right: 1px solid $gold; border-bottom: 1px solid $gold; }
+.cardImg { display: grid; place-items: center; height: 220px; background: #dfdfdf; color: $muted; }
+.cardImg svg { opacity: .3; }
+.cardImg img { width: 100%; height: 100%; object-fit: cover; }
+.cardBody { display: flex; flex-direction: column; gap: 16px; flex: 1; padding: 24px; }
+.cardBody h3 { font-size: 20px; font-weight: 700; line-height: 1.3; color: $heading; }
+.cardBody p { font-size: 16px; color: $muted; }
+.cardLink { margin-top: auto; color: $wine; font-size: 14px; font-weight: 700; }
+.cardLink:hover { text-decoration: underline; }
+.empty { padding: 56px 24px; text-align: center; color: $muted; }
+.showAll { display: none; }
+
+/* ===== Specialized services (dark) ===== */
+.band { background: $charcoal; color: $white; margin-top: $section-gap; padding: 90px 0; }
+.bandInner { display: flex; align-items: flex-start; gap: 143px; }
+.steps { flex: 1 1 877px; min-width: 0; }
+.step { display: flex; flex-direction: column; gap: 10px; padding: 32px 0; border-bottom: 1px solid $subtle; }
+.stepHead { display: flex; flex-direction: column; gap: 10px; }
+.badge { display: grid; place-items: center; width: 42px; height: 42px; border-radius: $r-sm; background: $gold; color: $white; font-size: 24px; font-weight: 700; }
+.step h3 { font-size: 24px; font-weight: 700; line-height: 1.3; color: $white; }
+.step p { font-size: 20px; color: $subtle; text-align: justify; }
+.bandText { flex: 0 1 500px; display: flex; flex-direction: column; gap: 32px; }
+.bandText h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; line-height: 1.3; color: $white; }
+.bandText p { font-size: 20px; text-align: justify; }
+.bandBtns { display: flex; gap: 16px; }
+
+/* ===== FAQ ===== */
+.faq { margin: $section-gap auto; }
+.faqGrid { display: grid; grid-template-columns: 687fr 748fr; gap: 85px; align-items: start; }
+.faqImg { aspect-ratio: 1; border-radius: $r-md; overflow: hidden; }
+.faqImg img { width: 100%; height: 100%; object-fit: cover; }
+.faqList h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; margin-bottom: 32px; color: $heading; }
+.faqList details { padding: 0 24px; border-bottom: 1px solid $divider; }
+.faqList details[open] { background: $surface; padding-bottom: 32px; }
+.faqList summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 88px; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 24px; color: $ink; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList summary::after { content: '+'; font-size: 28px; font-weight: 400; flex-shrink: 0; }
+.faqList details[open] summary::after { content: '\2212'; }
+.faqList details p { font-size: 16px; line-height: 32px; text-align: justify; color: $ink; }
+
+/* ===== Laptop (901 - 1279) ===== */
+@include laptop {
+  .hero { padding-bottom: 120px; }
+  .boxes { margin-top: 56px; }
+  .tab { padding: 0 18px; font-size: 15px; }
+  .cardImg { height: 190px; }
+  .cardBody { padding: 20px; }
+  .cardBody h3 { font-size: 18px; }
+  .cardBody p { font-size: 15px; }
+  .bandInner { gap: 48px; }
+  .step h3 { font-size: 22px; }
+  .step p, .bandText p { font-size: 18px; }
+  .faqGrid { gap: 48px; }
+  .faqList summary { font-size: 18px; }
+}
+
+/* ===== Phones and tablets (<= 900): the 390 design ===== */
+@include mobile {
+  .wrap { padding-inline: 16px; }
+  .btn { height: 48px; padding: 0 16px; font-size: 14px; }
+
+  .hero { background-image: var(--hero-bg-m); background-position: center; padding: 32px 16px 106px; }
+  .heroText { gap: 16px; max-width: 280px; margin-inline: auto; }
+  .heroText h1 { font-size: 24px; font-weight: 700; }
+  .heroText p { font-size: 16px; }
+  .heroBtns { width: 100%; margin-top: 4px; }
+  .heroBtns .btn { flex: 1 1 0; min-width: 0; }
+  .boxes { gap: 2px; margin-top: 38px; }
+
+  .areas { margin-top: 56px; }
+  .h2 { font-size: 20px; font-weight: 700; }
+  .toolbar { flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 16px; margin-top: 16px; }
+  .tabs { order: -1; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; padding: 0 16px; height: 54px; }
+  .search { width: 100%; }
+
+  .gridWrap { margin-top: 16px; border: 0; border-radius: 0; overflow: visible; }
+  .grid { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+  .card { border: 1px solid $gold; border-radius: $r-md; overflow: hidden; }
+  .cardImg { height: 150px; }
+  .cardBody { gap: 16px; padding: 8px 24px 16px; }
+  .cardBody h3 { font-size: 16px; line-height: 24px; }
+  .cardBody p { font-size: 14px; }
+  .grid[data-expanded='false'] .card:nth-child(n+4) { display: none; }
+  .showAll { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 20px auto 0; padding: 8px 12px; border: 0; background: none; color: $charcoal; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+
+  .band { margin-top: 56px; padding: 32px 0; }
+  .bandInner { flex-direction: column; gap: 32px; padding-inline: 21px; }
+  .bandText { order: -1; gap: 20px; flex: none; width: 100%; }
+  .bandText h2 { font-size: 20px; font-weight: 700; }
+  .bandText p { font-size: 16px; }
+  .bandBtns .btn { flex: 1 1 0; min-width: 0; }
+  .steps { flex: none; width: 100%; }
+  .step { padding: 12px 0; gap: 10px; }
+  .stepHead { flex-direction: row; align-items: center; gap: 16px; }
+  .badge { width: 24px; height: 24px; border-radius: 4px; font-size: 16px; }
+  .step h3 { font-size: 16px; line-height: 24px; }
+  .step p { font-size: 14px; }
+
+  .faq { margin: 56px auto; }
+  .faqGrid { grid-template-columns: 1fr; gap: 16px; }
+  .faqImg { order: 2; aspect-ratio: auto; height: 215px; }
+  .faqList h2 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+  .faqList details { padding: 0 16px; }
+  .faqList details[open] { padding-bottom: 16px; border-radius: $r-sm; }
+  .faqList summary { min-height: 64px; font-size: 16px; gap: 16px; }
+  .faqList details[open] summary { min-height: 56px; }
+  .faqList summary::after { font-size: 24px; }
+  .faqList details p { font-size: 14px; line-height: 1.7; }
+}

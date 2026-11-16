@@ -1,0 +1,129 @@
+@use '../../styles/variables' as *;
+
+/* Measured from the Contact frames: desktop 1920 (1520 container) and phone 390.
+   Tiers: >= 1280 desktop with the open-container artwork
+          901-1279 same layout, form panel without the artwork
+          <= 900   phone / tablet (390 design)                                  */
+
+@mixin wide { @media (min-width: 1280px) { @content; } }
+@mixin mid { @media (min-width: 901px) and (max-width: 1279px) { @content; } }
+
+/* Own container: longhands only, so section margins are never overridden */
+.wrap { max-width: $container; margin-inline: auto; padding-inline: 24px; }
+
+/* ===== Intro ===== */
+.intro { margin-top: 90px; }
+.head { display: flex; flex-direction: column; gap: 24px; text-align: center; }
+.head h1 { font-size: clamp(30px, 2.9vw, 40px); font-weight: 800; line-height: 1.3; color: #000; }
+.head p { font-size: clamp(18px, 1.7vw, 24px); color: $body; }
+
+.top { display: flex; align-items: stretch; gap: 21px; margin-top: 32px; }
+.map { position: relative; flex: 1 1 0; min-width: 0; height: 434px; border-radius: $r-md; overflow: hidden; }
+.mapImg { position: absolute; width: 99.48%; height: 114.83%; left: .26%; top: .08%; max-width: none; }
+.pin { position: absolute; left: 36.7%; top: 11.3%; width: 84px; height: 84px; }
+.mapLabel { position: absolute; left: 34.1%; top: 32.3%; padding: 5px 20px; border-radius: 50px; background: $charcoal; color: $white; font-size: 16px; line-height: 24px; white-space: nowrap; }
+
+.cards { flex: 0 0 362px; display: flex; flex-direction: column; gap: 16px; }
+.card { background: $surface; border-radius: $r-md; padding: 32px 24px; display: flex; flex-direction: column; gap: 14px; color: $ink; }
+.card h3 { font-size: 20px; font-weight: 700; line-height: 24px; color: $ink; }
+.card p { font-size: 16px; line-height: 32px; }
+
+/* ===== Form band (dark) ===== */
+.formBand { background: $charcoal; margin-top: $section-gap; padding: 90px 0; }
+.formHead { display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+.formHead h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; color: $white; }
+.formHead p { margin-top: 24px; font-size: 20px; color: $subtle; }
+
+.stage { position: relative; margin: 32px auto 0; }
+.art { display: none; }
+
+.panel { display: flex; flex-direction: column; gap: 20px; width: 655px; max-width: 100%; margin: 0 auto; padding: 20px; background: $surface; border-radius: $r-sm; }
+.row { display: flex; flex-wrap: wrap; gap: 20px; }
+.field { flex: 1 0 0; min-width: 280px; display: flex; flex-direction: column; gap: 8px; }
+.label { font-size: 16px; font-weight: 500; line-height: 1.2; color: $heading; }
+.input { width: 100%; height: 48px; padding: 0 12px; border: 1px solid $input-border; border-radius: $r-sm; background: $white; color: $body; font-family: inherit; font-size: 14px; }
+.input::placeholder { color: $body; opacity: 1; }
+.input:focus-visible { outline: 2px solid $gold; outline-offset: 1px; }
+.input[aria-invalid='true'] { border-color: $wine; }
+.textarea { height: 132px; padding: 12px; resize: vertical; }
+.selectWrap { position: relative; }
+.selectWrap .input { appearance: none; padding-right: 36px; cursor: pointer; }
+.chevron { position: absolute; right: 12px; top: 50%; translate: 0 -50%; color: $body; pointer-events: none; }
+.error { font-size: 13px; line-height: 1.4; color: $wine; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.submit { height: 48px; border: 0; border-radius: $r-sm; background: $wine; color: $white; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 24px; cursor: pointer; transition: opacity .2s; }
+.submit:hover { opacity: .9; }
+.submit:disabled { opacity: .6; cursor: progress; }
+.statusOk { font-size: 14px; line-height: 1.6; color: $heading; padding: 12px 14px; border-left: 3px solid $gold; background: $white; border-radius: $r-sm; }
+
+/* Desktop: the form sits inside the open container (1232 x 728 stage) */
+@include wide {
+  .stage { width: 1232px; height: 728px; overflow: clip; }
+  .art { display: block; position: absolute; left: 50%; bottom: -139px; width: 1232px; height: 1003px; translate: -50% 0; max-width: none; object-fit: cover; pointer-events: none; }
+  .panel { position: absolute; top: 93px; left: 50%; translate: -50% 0; margin: 0; }
+}
+
+/* ===== FAQ ===== */
+.faq { margin: $section-gap auto; }
+.faqGrid { display: grid; grid-template-columns: 687fr 748fr; gap: 85px; align-items: start; }
+.faqImg { aspect-ratio: 1; border-radius: $r-md; overflow: hidden; }
+.faqImg img { width: 100%; height: 100%; object-fit: cover; }
+.faqList h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; margin-bottom: 32px; color: $heading; }
+.faqList details { padding: 0 24px; border-bottom: 1px solid $divider; }
+.faqList details[open] { background: $surface; padding-bottom: 32px; }
+.faqList summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 88px; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 24px; color: $ink; }
+.faqList details[open] summary { min-height: 88px; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList summary::after { content: '+'; font-size: 28px; font-weight: 400; flex-shrink: 0; }
+.faqList details[open] summary::after { content: '\2212'; }
+.faqList details p { font-size: 16px; line-height: 32px; text-align: justify; color: $ink; }
+
+/* ===== Laptop (901 - 1279) ===== */
+@include mid {
+  .cards { flex-basis: 320px; }
+  .map { height: 400px; }
+  .faqGrid { gap: 48px; }
+  .faqList summary { font-size: 18px; }
+}
+
+/* ===== Phones and tablets (<= 900): the 390 design ===== */
+@include mobile {
+  .wrap { padding-inline: 16px; }
+  .intro { margin-top: 32px; }
+  .head { gap: 16px; }
+  .head h1 { font-size: 24px; font-weight: 700; }
+  .head p { font-size: 16px; }
+
+  .top { flex-direction: column; gap: 8px; margin-top: 20px; }
+  .map { flex: none; width: 100%; height: 250px; }
+  .mapImg { width: 240.86%; height: 151.43%; left: -49.57%; top: .17%; }
+  .pin { left: 40.8%; top: 21.6%; width: 52px; height: 52px; }
+  .mapLabel { left: 31.8%; top: 45.6%; padding: 3px 13px; font-size: 14px; line-height: 21px; }
+  .cards { flex: none; width: 100%; gap: 8px; }
+  .card { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; }
+  .card h3 { font-size: 16px; white-space: nowrap; }
+  .card p { font-size: 14px; line-height: 1.4; text-align: right; }
+
+  .formBand { margin-top: 56px; padding: 32px 0; }
+  .formHead { gap: 16px; }
+  .formHead h2 { font-size: 20px; font-weight: 700; }
+  .formHead p { margin-top: 0; font-size: 16px; }
+  .stage { margin-top: 32px; }
+  .panel { width: 100%; padding: 16px; gap: 8px; border-radius: $r-md; }
+  .row { gap: 8px; }
+  .field { min-width: 100%; }
+  .label { font-size: 14px; }
+  .textarea { height: 90px; }
+  .submit { margin-top: 8px; }
+
+  .faq { margin: 56px auto; }
+  .faqGrid { grid-template-columns: 1fr; gap: 16px; }
+  .faqImg { order: 2; aspect-ratio: auto; height: 215px; }
+  .faqList h2 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+  .faqList details { padding: 0 16px; }
+  .faqList details[open] { padding-bottom: 16px; border-radius: $r-sm; }
+  .faqList summary { min-height: 64px; font-size: 16px; gap: 16px; }
+  .faqList details[open] summary { min-height: 56px; }
+  .faqList summary::after { font-size: 24px; }
+  .faqList details p { font-size: 14px; line-height: 1.7; }
+}

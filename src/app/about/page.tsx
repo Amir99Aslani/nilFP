@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
+import type {Metadata} from 'next';
 import Link from 'next/link';
-import { images } from '@/content/images';
-import { home } from '@/content/home';
-import { about } from '@/content/about';
+import {images} from '@/content/images';
+import {home} from '@/content/home';
+import {about} from '@/content/about';
 import AreasGrid from '@/components/about/AreasGrid';
 import PageAnimations from '@/components/home/PageAnimations';
 import h from '@/components/home/Home.module.scss'; // shared: buttons, trust block, headings
@@ -14,12 +14,12 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    const { hero, meaning, principles, areas, team, vision } = about;
-    const { trust } = home;
+    const {hero, meaning, principles, areas, team, vision} = about;
+    const {trust} = home;
 
     return (
         <>
-            <PageAnimations />
+            <PageAnimations/>
 
             {/* Intro + banner */}
             <section className={`${a.intro} ${a.wrap}`}>
@@ -32,7 +32,7 @@ export default function AboutPage() {
                     </div>
                 </div>
                 <div className={a.banner} data-reveal="up">
-                    <img src={images.aboutHero} alt="" />
+                    <img src={images.aboutHero} alt=""/>
                 </div>
             </section>
 
@@ -50,7 +50,7 @@ export default function AboutPage() {
                 <div className={h.wrap}>
                     <div className={a.pTop}>
                         <div className={a.pImg} data-reveal="left">
-                            <img src={images.aboutPrinciples} alt="" />
+                            <img src={images.aboutPrinciples} alt=""/>
                         </div>
                         <div data-stagger>
                             <h2 className={h.h2}>{principles.title}</h2>
@@ -73,7 +73,7 @@ export default function AboutPage() {
             <section className={`${h.trust} ${h.wrap}`}>
                 <div className={h.trustGrid}>
                     <div className={h.trustImg} data-hang>
-                        <img className={h.img} src={images.container} alt="" style={{ objectFit: 'contain' }} />
+                        <img className={h.img} src={images.container} alt="" style={{objectFit: 'contain'}}/>
                     </div>
                     <div className={h.textContainer} data-stagger>
                         <h2 className={h.h2}>{trust.title}</h2>
@@ -94,7 +94,7 @@ export default function AboutPage() {
                     <h2 className={h.h2}>{areas.title}</h2>
                     <p>{areas.text}</p>
                 </div>
-                <AreasGrid items={areas.items} showAll={areas.showAll} showLess={areas.showLess} />
+                <AreasGrid items={areas.items} showAll={areas.showAll} showLess={areas.showLess}/>
             </section>
 
             {/* Team (dark) */}
@@ -105,7 +105,7 @@ export default function AboutPage() {
                     <div className={a.teamGrid} data-stagger="grid">
                         {team.members.map((m, i) => (
                             <div key={`${m.name}-${i}`} className={a.member}>
-                                <img src={images.aboutTeam} alt={m.name} />
+                                <img src={images.aboutTeam} alt={m.name}/>
                                 <h3>{m.name}</h3>
                                 <p>{m.role}</p>
                             </div>
@@ -118,7 +118,7 @@ export default function AboutPage() {
             <section className={`${a.vision} ${a.wrap}`}>
                 <div className={a.visionGrid}>
                     <div className={a.visionImg} data-reveal="left">
-                        <img src={images.aboutVision} alt="" />
+                        <img src={images.aboutVision} alt=""/>
                     </div>
                     <div className={a.visionText} data-stagger>
                         <h2 className={h.h2}>{vision.title}</h2>
