@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import LocaleLink from '@/components/LocaleLink';
 import { FaChevronDown } from '@react-icons/all-files/fa/FaChevronDown';
 import styles from './Footer.module.scss';
 
@@ -17,7 +17,7 @@ export default function FooterColumn({ title, links }: { title: string; links: s
             <div className={styles.colBody}>
                 <ul>
                     {links.map((l) => (
-                        <li key={l}><Link href="/">{l}</Link></li>
+                        <li key={l}><LocaleLink href="/">{l}</LocaleLink></li>
                     ))}
                 </ul>
             </div>

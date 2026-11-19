@@ -7,9 +7,15 @@
 .nav { display: flex; gap: 40px; font-size: 14px; }
 .nav a:hover { color: $sand; }
 .right { display: flex; align-items: center; gap: 32px; font-size: 14px; }
-.lang { display: flex; align-items: center; gap: 8px; }
 .btn { display: inline-flex; align-items: center; height: 48px; padding: 0 16px; background: $white; color: $wine; font-weight: 700; font-size: 14px; line-height: 24px; border-radius: $r-sm; white-space: nowrap; }
 .btn:hover { background: $ivory; }
+
+/* Language switcher */
+.langWrap { position: relative; }
+.langBtn { display: flex; align-items: center; gap: 8px; padding: 4px 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.langMenu { position: absolute; inset-inline-end: 0; top: calc(100% + 12px); z-index: 20; min-width: 160px; margin: 0; padding: 6px; list-style: none; background: $white; color: $heading; border-radius: $r-sm; box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .35); }
+.langMenu a { display: block; padding: 10px 12px; border-radius: 6px; font-size: 14px; }
+.langMenu a:hover, .langMenu a[aria-current='true'] { background: $surface; font-weight: 700; }
 
 // Mobile menu (hidden on desktop)
 .burger { display: none; background: none; border: 0; padding: 4px; color: inherit; cursor: pointer; }

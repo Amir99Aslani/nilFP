@@ -1,0 +1,197 @@
+@use '../../styles/variables' as *;
+
+/* Product detail page. Layout numbers follow the Product frame (1920 canvas, 700 + 72 + 748 intro);
+   the sections after the specifications are additions.
+   Tiers: >= 1280 desktop | 901-1279 laptop | <= 900 phone / tablet */
+
+@mixin laptop { @media (min-width: 901px) and (max-width: 1279px) { @content; } }
+@mixin narrow { @media (max-width: 1100px) { @content; } }
+
+/* Own container: longhands only, so section margins are never overridden */
+.wrap { max-width: $container; margin-inline: auto; padding-inline: 24px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 56px; padding: 0 29px; border: 1px solid transparent; border-radius: $r-sm; font-size: 16px; font-weight: 700; line-height: 24px; white-space: nowrap; transition: opacity .2s; }
+.btn:hover { opacity: .9; }
+.primary { border-color: $wine; background: $wine; color: $white; }
+.outline { border-color: $wine; color: $wine; background: transparent; }
+
+.centerTitle { font-size: clamp(26px, 3vw, 32px); font-weight: 800; line-height: 1.3; text-align: center; color: $heading; }
+.centerLead { margin: 12px auto 0; max-width: 760px; font-size: 20px; text-align: center; color: $muted; }
+
+/* ===== Breadcrumb + overview ===== */
+.top { margin-top: 32px; }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; font-size: 14px; color: $muted; }
+.crumbs li + li::before { content: '/'; margin-inline-end: 8px; color: $subtle; }
+.crumbs a:hover { color: $wine; text-decoration: underline; }
+.crumbs [aria-current] { color: $heading; font-weight: 700; }
+
+.intro { display: grid; grid-template-columns: 700fr 748fr; gap: 72px; align-items: start; margin-top: 32px; }
+.introText { display: flex; flex-direction: column; align-items: flex-start; }
+.tag { display: inline-block; padding: 4px 14px; border: 1px solid $sand; border-radius: 50px; background: $ivory; color: $wine; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.introText h1 { font-size: clamp(28px, 2.9vw, 40px); font-weight: 800; line-height: 1.25; color: #000; margin-bottom: 20px; }
+.lead { font-size: 20px; color: $body; text-align: justify; margin-bottom: 28px; }
+.specs { width: 100%; margin: 0 0 32px; }
+.spec { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid $input-border; }
+.spec dt { font-size: 16px; font-weight: 700; color: $heading; }
+.spec dd { margin: 0; font-size: 16px; color: $muted; text-align: end; }
+.cta { display: flex; flex-wrap: wrap; gap: 16px; }
+
+.gallery { position: sticky; top: 100px; }
+.mainImg { aspect-ratio: 748 / 581; border-radius: 24px; overflow: hidden; background: $surface; }
+.mainImg img { width: 100%; height: 100%; object-fit: cover; animation: fadeIn .45s ease; }
+@keyframes fadeIn { from { opacity: .25; } to { opacity: 1; } }
+.thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+.thumb { aspect-ratio: 4 / 3; padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; background: none; cursor: pointer; opacity: .65; transition: opacity .2s, border-color .2s; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb:hover { opacity: 1; }
+.thumb[data-active='true'] { opacity: 1; border-color: $gold; }
+.thumb:focus-visible { outline: 2px solid $gold; outline-offset: 2px; }
+
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; list-style: none; margin: 56px 0 0; padding: 0; }
+.facts li { background: $surface; border-radius: $r-md; padding: 24px; }
+.facts svg { color: $gold; }
+.facts h3 { margin: 14px 0 6px; font-size: 18px; font-weight: 700; color: $ink; }
+.facts p { font-size: 15px; color: $muted; }
+
+/* ===== Specifications (dark) ===== */
+.band { background: $charcoal; color: $white; margin-top: $section-gap; padding: 90px 0; }
+.band h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; line-height: 1.3; color: $white; }
+.bandLead { margin-top: 24px; max-width: 1100px; font-size: 20px; color: $subtle; }
+.rows { margin-top: 32px; }
+.row { display: grid; grid-template-columns: 40px minmax(160px, 331px) 1fr; gap: 24px; align-items: start; padding: 32px 0; border-bottom: 1px solid $subtle; }
+.num { font-size: 24px; font-weight: 700; line-height: 1.4; color: $gold; }
+.row h3 { font-size: 24px; font-weight: 700; line-height: 1.4; color: $white; }
+.row p { font-size: 20px; line-height: 1.5; color: $subtle; text-align: justify; }
+
+/* ===== How a request works ===== */
+.how { margin-top: $section-gap; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; list-style: none; margin: 48px 0 0; padding: 0; }
+.steps li { position: relative; padding: 28px 24px; border: 1px solid $divider; border-radius: $r-md; background: $white; }
+.steps li:not(:last-child)::after { content: ''; position: absolute; top: 50px; inset-inline-start: 100%; width: 20px; border-top: 2px dashed $sand; }
+.stepNum { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: $wine; color: $white; font-size: 20px; font-weight: 700; }
+.steps h3 { margin: 16px 0 8px; font-size: 20px; font-weight: 700; color: $heading; }
+.steps p { font-size: 16px; color: $muted; }
+
+/* ===== Quote (dark) ===== */
+.quote { background: $charcoal; margin-top: $section-gap; padding: 90px 0; }
+.quoteGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 655px); gap: 72px; align-items: center; }
+.quoteText h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; line-height: 1.3; color: $white; }
+.quoteText p { margin: 16px 0 24px; font-size: 20px; color: $subtle; }
+.quoteText ul { display: grid; gap: 14px; list-style: none; margin: 0; padding: 0; }
+.quoteText li { display: flex; align-items: center; gap: 12px; font-size: 18px; color: $white; }
+.quoteText svg { color: $gold; flex-shrink: 0; }
+
+/* ===== Other areas ===== */
+.related { margin-top: $section-gap; }
+.relatedGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+.relatedCard { display: flex; flex-direction: column; border: 1px solid $gold; border-radius: $r-md; overflow: hidden; background: $white; transition: transform .25s, box-shadow .25s; }
+.relatedCard:hover { transform: translateY(-4px); box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .3); }
+.relatedImg { display: grid; place-items: center; height: 160px; background: #dfdfdf; color: $muted; }
+.relatedImg svg { opacity: .3; }
+.relatedBody { display: flex; flex-direction: column; gap: 8px; padding: 24px; }
+.relatedBody h3 { font-size: 18px; font-weight: 700; line-height: 1.3; color: $heading; }
+.relatedBody p { font-size: 15px; color: $muted; }
+.relatedBody span { margin-top: 4px; color: $wine; font-size: 14px; font-weight: 700; }
+
+/* ===== FAQ ===== */
+.faq { margin: $section-gap auto; }
+.faqGrid { display: grid; grid-template-columns: 687fr 748fr; gap: 85px; align-items: start; }
+.faqImg { aspect-ratio: 1; border-radius: $r-md; overflow: hidden; }
+.faqImg img { width: 100%; height: 100%; object-fit: cover; }
+.faqList h2 { font-size: clamp(26px, 3vw, 32px); font-weight: 800; margin-bottom: 32px; color: $heading; }
+.faqList details { padding: 0 24px; border-bottom: 1px solid $divider; }
+.faqList details[open] { background: $surface; padding-bottom: 32px; }
+.faqList summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 88px; cursor: pointer; list-style: none; font-size: 20px; font-weight: 700; line-height: 24px; color: $ink; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList summary::after { content: '+'; font-size: 28px; font-weight: 400; flex-shrink: 0; }
+.faqList details[open] summary::after { content: '\2212'; }
+.faqList details p { font-size: 16px; line-height: 32px; text-align: justify; color: $ink; }
+
+/* ===== Laptop (901 - 1279) ===== */
+@include laptop {
+  .intro { gap: 48px; }
+  .lead, .bandLead, .row p, .quoteText p { font-size: 18px; }
+  .centerLead { font-size: 18px; }
+  .facts li { padding: 20px; }
+  .row h3 { font-size: 22px; }
+  .steps li { padding: 24px 18px; }
+  .steps h3 { font-size: 18px; }
+  .steps p { font-size: 15px; }
+  .quoteGrid { gap: 40px; }
+  .faqGrid { gap: 48px; }
+  .faqList summary { font-size: 18px; }
+}
+
+@include narrow {
+  .quoteGrid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
+/* ===== Phones and tablets (<= 900): follows the 390 design, plus mobile versions of the added sections ===== */
+@include mobile {
+  .wrap { padding-inline: 16px; }
+  .btn { height: 48px; padding: 0 16px; font-size: 14px; }
+  .centerTitle { font-size: 20px; font-weight: 700; }
+  .centerLead { font-size: 15px; margin-top: 8px; }
+
+  .top { margin-top: 20px; }
+  .crumbs ol { font-size: 13px; }
+  .intro { grid-template-columns: 1fr; gap: 20px; margin-top: 16px; }
+  .intro > div:last-child { order: -1; }
+  .gallery { position: static; }
+  .mainImg { aspect-ratio: auto; height: 278px; border-radius: $r-md; }
+  .thumbs { gap: 8px; }
+  .introText h1 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+  .tag { margin-bottom: 12px; }
+  .lead { font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+  .spec { padding: 12px 0; }
+  .spec dt { font-size: 14px; }
+  .spec dd { font-size: 14px; }
+  .specs { margin-bottom: 24px; }
+  .cta { flex-direction: column; width: 100%; }
+  .cta .btn { width: 100%; }
+
+  .facts { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+  .facts li { padding: 16px; }
+  .facts h3 { font-size: 15px; margin: 10px 0 4px; }
+  .facts p { font-size: 13px; }
+
+  .band { margin-top: 56px; padding: 32px 0; }
+  .band > .wrap { padding-inline: 20px; }
+  .band h2 { font-size: 20px; font-weight: 700; }
+  .bandLead { margin-top: 16px; font-size: 15px; }
+  .rows { margin-top: 24px; }
+  .row { grid-template-columns: 28px 1fr; gap: 8px 12px; padding: 20px 0; align-items: center; }
+  .num { font-size: 20px; }
+  .row h3 { font-size: 18px; }
+  .row p { grid-column: 1 / -1; font-size: 14px; line-height: 1.7; }
+
+  .how { margin-top: 56px; }
+  .steps { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+  .steps li { display: grid; grid-template-columns: 44px 1fr; gap: 4px 16px; padding: 18px 16px; }
+  .steps li::after { display: none; }
+  .stepNum { grid-row: span 2; }
+  .steps h3 { margin: 0; font-size: 16px; align-self: end; }
+  .steps p { font-size: 14px; }
+
+  .quote { margin-top: 56px; padding: 32px 0; }
+  .quoteGrid { gap: 24px; }
+  .quoteText h2 { font-size: 20px; font-weight: 700; }
+  .quoteText p { font-size: 15px; margin: 12px 0 16px; }
+  .quoteText li { font-size: 15px; }
+
+  .related { margin-top: 56px; }
+  .relatedGrid { grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+  .relatedImg { height: 120px; }
+  .relatedBody { padding: 16px 20px 20px; }
+
+  .faq { margin: 56px auto; }
+  .faqGrid { grid-template-columns: 1fr; gap: 16px; }
+  .faqImg { order: 2; aspect-ratio: auto; height: 215px; }
+  .faqList h2 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+  .faqList details { padding: 0 16px; }
+  .faqList details[open] { padding-bottom: 16px; border-radius: $r-sm; }
+  .faqList summary { min-height: 64px; font-size: 16px; gap: 16px; }
+  .faqList details[open] summary { min-height: 56px; }
+  .faqList summary::after { font-size: 24px; }
+  .faqList details p { font-size: 14px; line-height: 1.7; }
+}

@@ -21,15 +21,27 @@ body {
   min-height: 100%;
 }
 
-// Persian and Urdu use Peyda
-html[lang='fa'] body,
-html[lang='ur'] body {
+/* One font rule per language. Add the others here when they are enabled in src/i18n/config.ts */
+html[lang='fa'] body {
   font-family: var(--font-peyda), system-ui, sans-serif;
 }
 
-// Chinese: system CJK fonts for now
-html[lang='zh'] body {
+/* Arabic: Peyda 'FaNum' turns every digit into a Persian digit, so Arabic uses Noto Sans Arabic (Latin digits). */
+html[lang='ar'] body {
+  font-family: var(--font-noto-arabic), 'Segoe UI', Tahoma, system-ui, sans-serif;
+}
+
+/* html[lang='ur'] body { font-family: var(--font-peyda), 'Noto Sans Arabic', system-ui, sans-serif; } */
+
+/* Chinese: system CJK fonts (no download). */
+html[lang='zh-CN'] body {
   font-family: var(--font-open-sans), 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+
+html[lang='zh-CN'] h1,
+html[lang='zh-CN'] h2,
+html[lang='zh-CN'] h3 {
+  letter-spacing: 0;
 }
 
 h1, h2, h3, p {
@@ -60,4 +72,23 @@ img {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Right-to-left (Persian, Arabic, Urdu) ------------------------------------------------- */
+/* Letter-spacing breaks the joined letters of Arabic script: never apply it. */
+html[dir='rtl'] *,
+html[dir='rtl'] *::before,
+html[dir='rtl'] *::after {
+  letter-spacing: normal !important;
+}
+
+/* Blocks whose left/right arrangement is the same in the Persian design and the English one
+   (image on the left, text on the right ...) keep that arrangement; their content still reads right-to-left.
+   Everything else simply mirrors with the page direction. */
+html[dir='rtl'] [data-keep-layout] {
+  direction: ltr;
+}
+
+html[dir='rtl'] [data-keep-layout] > * {
+  direction: rtl;
 }

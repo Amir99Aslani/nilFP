@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import IntroOverlay from "./IntroOverlay";
 
 import {Toaster} from "react-hot-toast";
-import Footer from "../layout/Footer";
-import Header from "../layout/Header";
 
 const KEY = "tb_intro_seen_v1";
 
-export default function ClientIntroGate({ children }) {
+// header / footer are rendered by the server layout (they need the locale) and passed in here.
+export default function ClientIntroGate({ children, header, footer }) {
     // revealed = the page is visible (and the hero may start animating)
     // overlay  = the intro overlay is mounted (it keeps fading for a moment after the page is revealed)
     const [revealed, setRevealed] = useState(false);
@@ -49,9 +48,9 @@ export default function ClientIntroGate({ children }) {
 
             {/* Always rendered, so Next can see page.tsx. Hidden until revealed. */}
             <div style={{display: "contents", visibility: revealed ? "visible" : "hidden"}}>
-                <Header/>
+                {header}
                 {children}
-                <Footer/>
+                {footer}
                 <Toaster/>
             </div>
         </>

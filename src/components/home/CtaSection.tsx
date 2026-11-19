@@ -1,7 +1,7 @@
 "use client";
 
 import {useEffect, useRef} from "react";
-import Link from "next/link";
+import LocaleLink from "@/components/LocaleLink";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import ElephantPieces from "../../assets/images/ElephantPieces";
@@ -75,7 +75,7 @@ export default function CtaSection({cta}: Props) {
             <div className={`${s.ctaBody} ${s.wrap}`}>
                 <h2 className={s.h2}>{cta.title}</h2>
                 <p>{cta.text}</p>
-                <Link href="/contact" className={`${s.btn} ${s.primary}`}>{cta.button}</Link>
+                <LocaleLink href="/contact" className={`${s.btn} ${s.primary}`}>{cta.button}</LocaleLink>
             </div>
         </section>
     );

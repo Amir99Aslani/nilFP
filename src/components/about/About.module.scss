@@ -61,7 +61,7 @@
   margin-top: 32px;
   padding-top: 32px;
   border-top: 1px solid $input-border;
-  text-align: left;
+  text-align: start;
 }
 
 .descText {
@@ -90,6 +90,11 @@
   object-fit: cover;
 }
 
+/* the banner artwork has its logo panel on the left: mirror it for right-to-left pages */
+:global(html[dir='rtl']) .banner img {
+  transform: scaleX(-1);
+}
+
 /* ===== Meaningful relationships ===== */
 .meaning {
   margin-top: $section-gap;
@@ -115,7 +120,7 @@
   color: $white;
   padding: 90px 0;
   margin-top: $section-gap;
-  text-align: left;
+  text-align: start;
 }
 
 .band h2 {
@@ -201,7 +206,7 @@
 
 .areasHead p {
   font-size: 20px;
-  text-align: right;
+  text-align: end;
   max-width: 700px;
 }
 

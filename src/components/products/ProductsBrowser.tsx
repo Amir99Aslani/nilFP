@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
+import LocaleLink from '@/components/LocaleLink';
 import { FaAppleAlt } from '@react-icons/all-files/fa/FaAppleAlt';
 import { FaCar } from '@react-icons/all-files/fa/FaCar';
 import { FaChevronDown } from '@react-icons/all-files/fa/FaChevronDown';
@@ -13,14 +13,14 @@ import p from './Products.module.scss';
 
 const icons = { car: FaCar, food: FaAppleAlt, machinery: FaTractor, solar: FaSolarPanel, truck: FaTruck, parts: FaCog };
 
-type Item = { icon: string; category: string; title: string; text: string; image?: string };
+type Item = { slug: string; icon: string; category: string; title: string; text: string; image?: string };
 type Props = {
   categories: { id: string; label: string }[];
   items: Item[];
   labels: { search: string; empty: string; showAll: string; showLess: string; request: string };
 };
 
-// Set to false to hide the small "Request information" link on every card
+// Set to false to hide the small "View details" link on every card
 const SHOW_CARD_LINK = true;
 
 export default function ProductsBrowser({ categories, items, labels }: Props) {
@@ -37,7 +37,7 @@ export default function ProductsBrowser({ categories, items, labels }: Props) {
 
   return (
     <>
-      <div className={p.toolbar}>
+      <div className={p.toolbar} data-keep-layout>
         <input
           type="search"
           className={p.search}
@@ -68,21 +68,23 @@ export default function ProductsBrowser({ categories, items, labels }: Props) {
             {labels.empty}
           </p>
         ) : (
-          <div className={p.grid} data-expanded={expanded}>
+          <div className={p.grid} data-keep-layout data-expanded={expanded}>
             {visible.map((item) => {
               const Icon = icons[item.icon as keyof typeof icons];
               return (
                 <article key={item.title} className={p.card}>
-                  <div className={p.cardImg}>
+                  <LocaleLink href={`/products/${item.slug}`} className={p.cardImg} tabIndex={-1} aria-hidden="true">
                     {item.image ? <img src={item.image} alt="" /> : <Icon size={56} aria-hidden="true" />}
-                  </div>
+                  </LocaleLink>
                   <div className={p.cardBody}>
-                    <h3>{item.title}</h3>
+                    <h3>
+                      <LocaleLink href={`/products/${item.slug}`}>{item.title}</LocaleLink>
+                    </h3>
                     <p>{item.text}</p>
                     {SHOW_CARD_LINK && (
-                      <Link href="/contact" className={p.cardLink}>
+                      <LocaleLink href={`/products/${item.slug}`} className={p.cardLink}>
                         {labels.request} →
-                      </Link>
+                      </LocaleLink>
                     )}
                   </div>
                 </article>

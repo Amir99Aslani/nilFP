@@ -19,7 +19,7 @@ export default function AreasGrid({ items, showAll, showLess }: { items: Item[];
     const [expanded, setExpanded] = useState(false);
     return (
         <>
-            <div className={a.grid} data-stagger="grid" data-expanded={expanded}>
+            <div className={a.grid} data-stagger="grid" data-keep-layout data-expanded={expanded}>
                 {items.map((item) => {
                     const Icon = icons[item.icon as keyof typeof icons];
                     return (

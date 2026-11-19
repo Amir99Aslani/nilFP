@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import Link from 'next/link';
+import LocaleLink from '@/components/LocaleLink';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -106,8 +106,8 @@ export default function HeroSection({ hero }: Props) {
                     </h2>
                     <p data-hero-in>{hero.text}</p>
                     <div data-hero-in className={s.btnRow}>
-                        <Link href="/about" className={`${s.btn} ${s.outline}`}>{hero.about}</Link>
-                        <Link href="/contact" className={`${s.btn} ${s.primary}`}>{hero.cta}</Link>
+                        <LocaleLink href="/about" className={`${s.btn} ${s.outline}`}>{hero.about}</LocaleLink>
+                        <LocaleLink href="/contact" className={`${s.btn} ${s.primary}`}>{hero.cta}</LocaleLink>
                     </div>
                 </div>
             </div>

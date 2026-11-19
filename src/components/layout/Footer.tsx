@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import LocaleLink from '@/components/LocaleLink';
 import { FaClock } from '@react-icons/all-files/fa/FaClock';
 import { FaEnvelope } from '@react-icons/all-files/fa/FaEnvelope';
 import { FaFacebookF } from '@react-icons/all-files/fa/FaFacebookF';
@@ -8,18 +8,18 @@ import { FaMapMarkerAlt } from '@react-icons/all-files/fa/FaMapMarkerAlt';
 import { FaPhoneAlt } from '@react-icons/all-files/fa/FaPhoneAlt';
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter';
 import { images } from '@/content/images';
-import { footer as f } from '@/content/home';
+import type { Content } from '@/content';
 import FooterColumn from './FooterColumn';
 import styles from './Footer.module.scss';
 
-export default function Footer() {
+export default function Footer({ footer: f, brand }: { footer: Content['footer']; brand: string }) {
     return (
         <footer className={styles.footer}>
             <div className={styles.inner}>
                 <div>
-                    <div className={styles.brand}><img src={images.logo} alt="" /> NILFARASOYE PARS</div>
+                    <div className={styles.brand}><img src={images.logo} alt="" /> {brand}</div>
                     <p className={styles.about}>{f.about}</p>
-                    <Link href="/contact" className={styles.cta}>{f.cta}</Link>
+                    <LocaleLink href="/contact" className={styles.cta}>{f.cta}</LocaleLink>
                 </div>
                 <FooterColumn title={f.linksTitle} links={f.links} />
                 <FooterColumn title={f.servicesTitle} links={f.services} />

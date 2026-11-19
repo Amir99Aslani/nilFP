@@ -1,14 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FaChevronDown } from '@react-icons/all-files/fa/FaChevronDown';
-import { contactSchema, REQUEST_TYPE_LABELS, REQUEST_TYPE_VALUES, type ContactInput } from '@/lib/contact-schema';
-import { contact } from '@/content/contact';
+import { createContactSchema, REQUEST_TYPE_VALUES, type ContactInput } from '@/lib/contact-schema';
+import type { Content } from '@/content';
 import c from './Contact.module.scss';
-
-const f = contact.form;
 
 function Field({
   id,
@@ -39,7 +37,8 @@ function Field({
   );
 }
 
-export default function ContactForm() {
+export default function ContactForm({ copy: f, defaults }: { copy: Content['contact']['form']; defaults?: Partial<ContactInput> }) {
+  const schema = useMemo(() => createContactSchema(f.errors), [f.errors]);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [serverError, setServerError] = useState('');
 
@@ -49,9 +48,9 @@ export default function ContactForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactInput>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(schema),
     mode: 'onTouched',
-    defaultValues: { name: '', type: '' as ContactInput['type'], email: '', phone: '', country: '', company: '', message: '', website: '' },
+    defaultValues: { name: '', type: '' as ContactInput['type'], email: '', phone: '', country: '', company: '', message: '', website: '', ...defaults },
   });
 
   const onSubmit = async (values: ContactInput) => {
@@ -96,7 +95,7 @@ export default function ContactForm() {
               </option>
               {REQUEST_TYPE_VALUES.map((v) => (
                 <option key={v} value={v}>
-                  {REQUEST_TYPE_LABELS[v]}
+                  {f.types[v]}
                 </option>
               ))}
             </select>
@@ -107,10 +106,10 @@ export default function ContactForm() {
 
       <div className={c.row}>
         <Field id="email" label={f.fields.email.label} error={errors.email?.message}>
-          <input id="email" type="email" className={c.input} placeholder={f.fields.email.placeholder} autoComplete="email" {...register('email')} {...aria('email')} />
+          <input id="email" type="email" className={c.input} placeholder={f.fields.email.placeholder} autoComplete="email" dir="auto" {...register('email')} {...aria('email')} />
         </Field>
         <Field id="phone" label={f.fields.phone.label} error={errors.phone?.message}>
-          <input id="phone" type="tel" className={c.input} placeholder={f.fields.phone.placeholder} autoComplete="tel" {...register('phone')} {...aria('phone')} />
+          <input id="phone" type="tel" className={c.input} placeholder={f.fields.phone.placeholder} autoComplete="tel" dir="auto" {...register('phone')} {...aria('phone')} />
         </Field>
       </div>
 

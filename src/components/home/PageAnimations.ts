@@ -25,6 +25,7 @@ export default function PageAnimations() {
 
         const wide = window.innerWidth > 900;
         const D = wide ? 56 : 24; // slide distance in px
+        const rtl = document.documentElement.dir === 'rtl';
 
         const all = <T extends HTMLElement = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
 
@@ -38,8 +39,16 @@ export default function PageAnimations() {
                 fade: {},
             };
 
+            // RTL: a block that mirrors with the page (image on the left in Persian/Arabic) must slide in from
+            // the side it now sits on, so left <-> right swap. Blocks inside [data-keep-layout] do not move
+            // sides, so they keep their direction.
+            const flip = (dir: string, el: HTMLElement) => {
+                if (!rtl || el.closest('[data-keep-layout]')) return dir;
+                return dir === 'left' ? 'right' : dir === 'right' ? 'left' : dir;
+            };
+
             const reveals = all('[data-reveal]');
-            reveals.forEach((el) => gsap.set(el, { autoAlpha: 0, ...from[el.dataset.reveal || 'up'] }));
+            reveals.forEach((el) => gsap.set(el, { autoAlpha: 0, ...from[flip(el.dataset.reveal || 'up', el)] }));
 
             // Children of a group. If the group holds a single wrapper (e.g. <FaqList/>),
             // animate the wrapper's children instead.

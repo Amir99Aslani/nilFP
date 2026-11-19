@@ -78,7 +78,7 @@
   height: 712px;
   border-radius: $r-lg;
   overflow: hidden;
-  text-align: left;
+  text-align: start;
   @include mobile {
     height: 480px;
   }
@@ -156,7 +156,7 @@
 
 .heroCard h2 span {
   color: $gold;
-  margin-right: 10px;
+  margin-inline-end: 10px;
 }
 
 .heroCard p {
@@ -223,7 +223,7 @@
   border: 1px solid $gold;
   border-radius: $r-md;
   overflow: hidden;
-  text-align: left;
+  text-align: start;
   background: $white;
   color: $body;
   @include mobile {

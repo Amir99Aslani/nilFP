@@ -1,4 +1,5 @@
 export const home = {
+  meta: { title: 'NIL FARASOYE PARS | Global Trade & Business Partnerships', description: 'Nil Farasoye Pars provides a platform to explore international transportation solutions and connect businesses across global markets.' },
   hero: { title: 'A Broader Vision for Global Trade Opportunities', cardTitle: 'International Logistics & Transportation', text: 'Nil Farasoye Pars provides a platform to explore \n international transportation solutions and connect businesses across global markets.', about: 'About the Company', cta: 'Submit a Partnership Request' },
   intro: { title: 'Business Connections with a Vision', text: 'Nil Farasoye Pars presents this website as a starting point for connecting with buyers, suppliers, and businesses interested in collaboration. Our goal is to introduce business capabilities and provide a platform for dialogue with business professionals. Detailed information about our business activities and company track record will be completed once officially verified.', about: 'About NFP', cta: 'Collaboration Opportunities' },
   activities: {
@@ -43,7 +44,7 @@ export const home = {
     items: [
       { q: 'How can I submit a business partnership request?', a: 'Use the website form or the contact details provided to describe your business area, desired product or service, target market, and type of collaboration. Your request will then be available for an initial review.' },
       { q: 'What information is required to review a request?', a: 'Details such as your company, product or service, target market, and preferred type of collaboration help us review your request.' },
-      { q: 'Is the website available in other languages?', a: 'Yes. The website is being prepared in English, Persian, Urdu, Chinese, and German.' },
+      { q: 'Is the website available in other languages?', a: 'Yes. The website is being prepared in English, Persian, Arabic, and Chinese.' },
       { q: 'Does submitting a request guarantee a partnership?', a: 'No. A request starts the conversation. Any partnership depends on mutual review and agreement.' },
       { q: 'How can I receive initial guidance about my target market?', a: 'Share your target market and product in the request form, and we will follow up with initial guidance.' },
       { q: 'Can new import and export opportunities be explored?', a: 'Yes. Send us your product and target market, and we will explore the opportunity with you.' },
@@ -52,7 +53,11 @@ export const home = {
 
 };
 
-export const nav = { home: 'Home', services: 'Services', about: 'About Us', contact: 'Contact Us', cta: 'Partnership Request' };
+export const nav = {
+  brand: 'NILFARASOYE PARS',
+  home: 'Home', services: 'Services', about: 'About Us', contact: 'Contact Us', cta: 'Partnership Request',
+  openMenu: 'Open menu', closeMenu: 'Close menu', language: 'Language',
+};
 
 export const footer = {
   about: 'Nil Farasoye Pars provides a platform to explore international transportation solutions and connect businesses across global markets.',

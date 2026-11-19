@@ -1,21 +1,33 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { images } from '@/content/images';
-import { home } from '@/content/home';
-import { contact } from '@/content/contact';
+import { getContent } from '@/content';
+import { isLocale } from '@/i18n/config';
+import { pageMetadata } from '@/lib/metadata';
 import FaqList from '@/components/home/FaqList';
 import PageAnimations from '@/components/home/PageAnimations';
 import ContactForm from '@/components/contact/ContactForm';
 import c from '@/components/contact/Contact.module.scss';
 
-export const metadata: Metadata = {
-    title: 'Contact Us | NIL FARASOYE PARS',
-    description: 'Get in touch with Nil Farasoye Pars: send a business request, or find our phone, working hours and address.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params;
+    if (!isLocale(locale)) return {};
+    const { meta } = getContent(locale).contact;
+    return pageMetadata({ locale, path: '/contact', title: meta.title, description: meta.description });
+}
 
 // Same questions as the home page, in the order of the Contact design
-const faqItems = [0, 1, 3, 4, 5, 2].map((i) => home.faq.items[i]);
+const faqOrder = [0, 1, 3, 4, 5, 2];
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: Props) {
+    const { locale } = await params;
+    if (!isLocale(locale)) notFound();
+    const c0 = getContent(locale);
+    const contact = c0.contact;
+    const faqItems = faqOrder.map((i) => c0.home.faq.items[i]);
+
     return (
         <>
             <PageAnimations />
@@ -26,7 +38,7 @@ export default function ContactPage() {
                     <h1>{contact.title}</h1>
                     <p>{contact.subtitle}</p>
                 </div>
-                <div className={c.top}>
+                <div className={c.top} data-keep-layout>
                     <div className={c.map} data-reveal="left">
                         <img className={c.mapImg} src={images.contactMap} alt="" />
                         <img className={c.pin} src={images.contactPin} alt="" />
@@ -52,14 +64,14 @@ export default function ContactPage() {
                     </div>
                     <div className={c.stage}>
                         <img className={c.art} src={images.contactArt} alt="" />
-                        <ContactForm />
+                        <ContactForm copy={contact.form} />
                     </div>
                 </div>
             </section>
 
             {/* FAQ */}
             <section className={`${c.faq} ${c.wrap}`}>
-                <div className={c.faqGrid}>
+                <div className={c.faqGrid} data-keep-layout>
                     <div className={c.faqImg} data-reveal="left">
                         <img src={images.faq} alt="" />
                     </div>

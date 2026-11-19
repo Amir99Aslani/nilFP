@@ -1,22 +1,32 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { images } from '@/content/images';
-import { home } from '@/content/home';
-import { products } from '@/content/products';
+import { getContent } from '@/content';
+import { isLocale } from '@/i18n/config';
+import { pageMetadata } from '@/lib/metadata';
+import LocaleLink from '@/components/LocaleLink';
 import FaqList from '@/components/home/FaqList';
 import PageAnimations from '@/components/home/PageAnimations';
 import ProductsBrowser from '@/components/products/ProductsBrowser';
 import p from '@/components/products/Products.module.scss';
 
-export const metadata: Metadata = {
-    title: 'Products & Services | NIL FARASOYE PARS',
-    description: 'Our areas of activity: food export, vehicle and machinery imports, solar equipment, logistics and specialized trade services.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params;
+    if (!isLocale(locale)) return {};
+    const { meta } = getContent(locale).products;
+    return pageMetadata({ locale, path: '/products', title: meta.title, description: meta.description });
+}
 
 // Left to right: slices of the sprite image (food, wheel, machinery, solar, logistics)
 const boxOffsets = ['-8.66%', '-110.33%', '-213.66%', '-318.21%', '-421.44%'];
 
-export default function ProductsPage() {
+export default async function ProductsPage({ params }: Props) {
+    const { locale } = await params;
+    if (!isLocale(locale)) notFound();
+    const c = getContent(locale);
+    const { products } = c;
     const { hero, areas, services } = products;
 
     return (
@@ -32,12 +42,12 @@ export default function ProductsPage() {
                     <div className={p.heroText} data-reveal="up">
                         <h1>{hero.title}</h1>
                         <p>{hero.text}</p>
-                        <div className={p.heroBtns}>
-                            <Link href="/contact" className={`${p.btn} ${p.outline}`}>{hero.quote}</Link>
-                            <Link href="/about#areas" className={`${p.btn} ${p.primary}`}>{hero.collab}</Link>
+                        <div className={p.heroBtns} data-keep-layout>
+                            <LocaleLink href="/contact" className={`${p.btn} ${p.outline}`}>{hero.quote}</LocaleLink>
+                            <LocaleLink href="/about#areas" className={`${p.btn} ${p.primary}`}>{hero.collab}</LocaleLink>
                         </div>
                     </div>
-                    <div className={p.boxes} aria-hidden="true">
+                    <div className={p.boxes} data-keep-layout aria-hidden="true">
                         {boxOffsets.map((left) => (
                             <span key={left} className={p.box}>
                                 <img src={images.productsBoxes} alt="" style={{ left }} />
@@ -59,7 +69,7 @@ export default function ProductsPage() {
 
             {/* Specialized services (dark) */}
             <section className={p.band}>
-                <div className={`${p.bandInner} ${p.wrap}`}>
+                <div className={`${p.bandInner} ${p.wrap}`} data-keep-layout>
                     <div className={p.steps} data-stagger>
                         {services.items.map((s, i) => (
                             <div key={s.title} className={p.step}>
@@ -75,8 +85,8 @@ export default function ProductsPage() {
                         <h2>{services.title}</h2>
                         <p>{services.text}</p>
                         <div className={p.bandBtns}>
-                            <Link href="/contact" className={`${p.btn} ${p.ghost}`}>{services.consult}</Link>
-                            <Link href="/contact" className={`${p.btn} ${p.light}`}>{services.start}</Link>
+                            <LocaleLink href="/contact" className={`${p.btn} ${p.ghost}`}>{services.consult}</LocaleLink>
+                            <LocaleLink href="/contact" className={`${p.btn} ${p.light}`}>{services.start}</LocaleLink>
                         </div>
                     </div>
                 </div>
@@ -84,14 +94,14 @@ export default function ProductsPage() {
 
             {/* FAQ */}
             <section className={`${p.faq} ${p.wrap}`}>
-                <div className={p.faqGrid}>
+                <div className={p.faqGrid} data-keep-layout>
                     <div className={p.faqImg} data-reveal="left">
                         <img src={images.faq} alt="" />
                     </div>
                     <div className={p.faqList}>
                         <h2 data-reveal="up">{products.faqTitle}</h2>
                         <div data-stagger>
-                            <FaqList items={home.faq.items} />
+                            <FaqList items={c.home.faq.items} />
                         </div>
                     </div>
                 </div>

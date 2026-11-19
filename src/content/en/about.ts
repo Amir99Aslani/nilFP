@@ -1,5 +1,6 @@
 // English copy translated from the Persian About frame (drafts: please review).
 export const about = {
+  meta: { title: 'About Us | NIL FARASOYE PARS', description: 'Nil Farasoye Pars is a space for exploring collaboration capacities, business dialogue and international trade opportunities.' },
   hero: {
     title: 'A Clear Vision of International Trade, a Connection Beyond Borders',
     text: 'Nil Farasoye Pars is a space for exploring collaboration capacities, business dialogue and international trade opportunities among businesses in global markets.',

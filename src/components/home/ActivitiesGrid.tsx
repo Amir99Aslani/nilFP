@@ -19,7 +19,7 @@ export default function ActivitiesGrid({ items, showAll, showLess }: { items: It
     const [expanded, setExpanded] = useState(false);
     return (
         <>
-            <div className={s.grid6} data-stagger="grid" data-expanded={expanded}>
+            <div className={s.grid6} data-stagger="grid" data-keep-layout data-expanded={expanded}>
                 {items.map((a) => {
                     const Icon = icons[a.icon as keyof typeof icons];
                     return (

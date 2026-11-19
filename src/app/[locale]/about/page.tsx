@@ -1,38 +1,47 @@
-import type {Metadata} from 'next';
-import Link from 'next/link';
-import {images} from '@/content/images';
-import {home} from '@/content/home';
-import {about} from '@/content/about';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { images } from '@/content/images';
+import { getContent } from '@/content';
+import { isLocale } from '@/i18n/config';
+import { pageMetadata } from '@/lib/metadata';
+import LocaleLink from '@/components/LocaleLink';
 import AreasGrid from '@/components/about/AreasGrid';
 import PageAnimations from '@/components/home/PageAnimations';
 import h from '@/components/home/Home.module.scss'; // shared: buttons, trust block, headings
 import a from '@/components/about/About.module.scss';
 
-export const metadata: Metadata = {
-    title: 'About Us | NIL FARASOYE PARS',
-    description: 'Nil Farasoye Pars is a space for exploring collaboration capacities, business dialogue and international trade opportunities.',
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function AboutPage() {
-    const {hero, meaning, principles, areas, team, vision} = about;
-    const {trust} = home;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params;
+    if (!isLocale(locale)) return {};
+    const { meta } = getContent(locale).about;
+    return pageMetadata({ locale, path: '/about', title: meta.title, description: meta.description });
+}
+
+export default async function AboutPage({ params }: Props) {
+    const { locale } = await params;
+    if (!isLocale(locale)) notFound();
+    const c = getContent(locale);
+    const { hero, meaning, principles, areas, team, vision } = c.about;
+    const { trust } = c.home;
 
     return (
         <>
-            <PageAnimations/>
+            <PageAnimations />
 
             {/* Intro + banner */}
             <section className={`${a.intro} ${a.wrap}`}>
                 <h1 className={a.introTitle} data-reveal="up">{hero.title}</h1>
                 <div className={a.descRow} data-reveal="up">
                     <p className={a.descText}>{hero.text}</p>
-                    <div className={a.descBtns}>
-                        <Link href="#areas" className={`${h.btn} ${h.outline}`}>{hero.areas}</Link>
-                        <Link href="/contact" className={`${h.btn} ${h.primary}`}>{hero.cta}</Link>
+                    <div className={a.descBtns} data-keep-layout>
+                        <LocaleLink href="#areas" className={`${h.btn} ${h.outline}`}>{hero.areas}</LocaleLink>
+                        <LocaleLink href="/contact" className={`${h.btn} ${h.primary}`}>{hero.cta}</LocaleLink>
                     </div>
                 </div>
                 <div className={a.banner} data-reveal="up">
-                    <img src={images.aboutHero} alt=""/>
+                    <img src={images.aboutHero} alt="" />
                 </div>
             </section>
 
@@ -41,16 +50,16 @@ export default function AboutPage() {
                 <div className={a.meaningInner} data-stagger>
                     <h2 className={h.h2}>{meaning.title}</h2>
                     <p>{meaning.text}</p>
-                    <Link href="/contact" className={`${h.btn} ${h.primary}`}>{meaning.cta}</Link>
+                    <LocaleLink href="/contact" className={`${h.btn} ${h.primary}`}>{meaning.cta}</LocaleLink>
                 </div>
             </section>
 
             {/* Principles (dark) */}
             <section className={a.band}>
                 <div className={h.wrap}>
-                    <div className={a.pTop}>
+                    <div className={a.pTop} data-keep-layout>
                         <div className={a.pImg} data-reveal="left">
-                            <img src={images.aboutPrinciples} alt=""/>
+                            <img src={images.aboutPrinciples} alt="" />
                         </div>
                         <div data-stagger>
                             <h2 className={h.h2}>{principles.title}</h2>
@@ -71,9 +80,9 @@ export default function AboutPage() {
 
             {/* Trust Beyond Borders (same block as the home page) */}
             <section className={`${h.trust} ${h.wrap}`}>
-                <div className={h.trustGrid}>
+                <div className={h.trustGrid} data-keep-layout>
                     <div className={h.trustImg} data-hang>
-                        <img className={h.img} src={images.container} alt="" style={{objectFit: 'contain'}}/>
+                        <img className={h.img} src={images.container} alt="" style={{ objectFit: 'contain' }} />
                     </div>
                     <div className={h.textContainer} data-stagger>
                         <h2 className={h.h2}>{trust.title}</h2>
@@ -83,7 +92,7 @@ export default function AboutPage() {
                                 <div key={x.label}><strong data-count>{x.value}</strong><span>{x.label}</span></div>
                             ))}
                         </div>
-                        <Link href="/contact" className={`${h.btn} ${h.primary}`}>{trust.cta}</Link>
+                        <LocaleLink href="/contact" className={`${h.btn} ${h.primary}`}>{trust.cta}</LocaleLink>
                     </div>
                 </div>
             </section>
@@ -94,7 +103,7 @@ export default function AboutPage() {
                     <h2 className={h.h2}>{areas.title}</h2>
                     <p>{areas.text}</p>
                 </div>
-                <AreasGrid items={areas.items} showAll={areas.showAll} showLess={areas.showLess}/>
+                <AreasGrid items={areas.items} showAll={areas.showAll} showLess={areas.showLess} />
             </section>
 
             {/* Team (dark) */}
@@ -105,7 +114,7 @@ export default function AboutPage() {
                     <div className={a.teamGrid} data-stagger="grid">
                         {team.members.map((m, i) => (
                             <div key={`${m.name}-${i}`} className={a.member}>
-                                <img src={images.aboutTeam} alt={m.name}/>
+                                <img src={images.aboutTeam} alt={m.name} />
                                 <h3>{m.name}</h3>
                                 <p>{m.role}</p>
                             </div>
@@ -116,9 +125,9 @@ export default function AboutPage() {
 
             {/* Vision */}
             <section className={`${a.vision} ${a.wrap}`}>
-                <div className={a.visionGrid}>
+                <div className={a.visionGrid} data-keep-layout>
                     <div className={a.visionImg} data-reveal="left">
-                        <img src={images.aboutVision} alt=""/>
+                        <img src={images.aboutVision} alt="" />
                     </div>
                     <div className={a.visionText} data-stagger>
                         <h2 className={h.h2}>{vision.title}</h2>

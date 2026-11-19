@@ -47,20 +47,20 @@
 .input[aria-invalid='true'] { border-color: $wine; }
 .textarea { height: 132px; padding: 12px; resize: vertical; }
 .selectWrap { position: relative; }
-.selectWrap .input { appearance: none; padding-right: 36px; cursor: pointer; }
-.chevron { position: absolute; right: 12px; top: 50%; translate: 0 -50%; color: $body; pointer-events: none; }
+.selectWrap .input { appearance: none; padding-inline-end: 36px; cursor: pointer; }
+.chevron { position: absolute; inset-inline-end: 12px; top: 50%; translate: 0 -50%; color: $body; pointer-events: none; }
 .error { font-size: 13px; line-height: 1.4; color: $wine; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .submit { height: 48px; border: 0; border-radius: $r-sm; background: $wine; color: $white; font-family: inherit; font-size: 14px; font-weight: 700; line-height: 24px; cursor: pointer; transition: opacity .2s; }
 .submit:hover { opacity: .9; }
 .submit:disabled { opacity: .6; cursor: progress; }
-.statusOk { font-size: 14px; line-height: 1.6; color: $heading; padding: 12px 14px; border-left: 3px solid $gold; background: $white; border-radius: $r-sm; }
+.statusOk { font-size: 14px; line-height: 1.6; color: $heading; padding: 12px 14px; border-inline-start: 3px solid $gold; background: $white; border-radius: $r-sm; }
 
 /* Desktop: the form sits inside the open container (1232 x 728 stage) */
 @include wide {
   .stage { width: 1232px; height: 728px; overflow: clip; }
   .art { display: block; position: absolute; left: 50%; bottom: -139px; width: 1232px; height: 1003px; translate: -50% 0; max-width: none; object-fit: cover; pointer-events: none; }
-  .panel { position: absolute; top: 93px; left: 50%; translate: -50% 0; margin: 0; }
+  .stage .panel { position: absolute; top: 93px; left: 50%; translate: -50% 0; margin: 0; }
 }
 
 /* ===== FAQ ===== */
@@ -102,7 +102,7 @@
   .cards { flex: none; width: 100%; gap: 8px; }
   .card { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; }
   .card h3 { font-size: 16px; white-space: nowrap; }
-  .card p { font-size: 14px; line-height: 1.4; text-align: right; }
+  .card p { font-size: 14px; line-height: 1.4; text-align: end; }
 
   .formBand { margin-top: 56px; padding: 32px 0; }
   .formHead { gap: 16px; }

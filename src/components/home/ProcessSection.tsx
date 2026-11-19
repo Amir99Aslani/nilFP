@@ -142,12 +142,14 @@ export default function ProcessSection({ process }: Props) {
         raf.current = requestAnimationFrame(() => {
             const track = trackRef.current;
             if (!track) return;
-            const center = track.scrollLeft + track.clientWidth / 2;
+            const box = track.getBoundingClientRect();
+            const center = box.left + box.width / 2;
             let best = 0;
             let bestDist = Infinity;
             cardRefs.current.forEach((c, i) => {
                 if (!c) return;
-                const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - center);
+                const r = c.getBoundingClientRect();
+                const d = Math.abs(r.left + r.width / 2 - center);
                 if (d < bestDist) {
                     bestDist = d;
                     best = i;
@@ -159,10 +161,7 @@ export default function ProcessSection({ process }: Props) {
 
     // [responsive] dots
     const goTo = (i: number) => {
-        const track = trackRef.current;
-        const card = cardRefs.current[i];
-        if (!track || !card) return;
-        track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' });
+        cardRefs.current[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     };
 
     useEffect(() => {
@@ -264,7 +263,7 @@ export default function ProcessSection({ process }: Props) {
                 <h2 className={s.h2}>{title}</h2>
                 <p className={s.lead}>{text}</p>
 
-                <div ref={railRef} className={s.steps}>
+                <div ref={railRef} className={s.steps} data-keep-layout>
                     {/* Crane trolley + hook (decorative) */}
                     <div ref={hookRef} className={s.hook} aria-hidden="true">
                         <span className={s.trolley} />
@@ -315,7 +314,7 @@ export default function ProcessSection({ process }: Props) {
                             className={s.dot}
                             data-active={i === active}
                             aria-label={`${i + 1} / ${count}: ${step.title}`}
-                            aria-current={i === active ? 'step' : false}
+                            aria-current={i === active ? 'step' : undefined}
                             onClick={() => goTo(i)}
                         />
                     ))}

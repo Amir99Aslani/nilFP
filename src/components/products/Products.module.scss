@@ -35,9 +35,9 @@
 .search::placeholder { color: $muted; font-weight: 700; opacity: 1; }
 .search:focus-visible { outline: 2px solid $gold; outline-offset: 2px; }
 .tabs { display: flex; }
-.tab { height: 56px; padding: 0 29px; border: 1px solid $wine; border-left-width: 0; background: transparent; color: $wine; font-family: inherit; font-size: 16px; font-weight: 700; line-height: 24px; white-space: nowrap; cursor: pointer; transition: background .2s, color .2s; }
-.tab:first-child { border-left-width: 1px; border-radius: $r-sm 0 0 $r-sm; }
-.tab:last-child { border-radius: 0 $r-sm $r-sm 0; }
+.tab { height: 56px; padding: 0 29px; border: 1px solid $wine; border-inline-start-width: 0; background: transparent; color: $wine; font-family: inherit; font-size: 16px; font-weight: 700; line-height: 24px; white-space: nowrap; cursor: pointer; transition: background .2s, color .2s; }
+.tab:first-child { border-inline-start-width: 1px; border-start-start-radius: $r-sm; border-end-start-radius: $r-sm; }
+.tab:last-child { border-start-end-radius: $r-sm; border-end-end-radius: $r-sm; }
 .tab[data-active='true'] { background: $wine; color: $white; }
 .tab:focus-visible { outline: 2px solid $gold; outline-offset: 2px; position: relative; z-index: 1; }
 
@@ -52,6 +52,9 @@
 .cardBody p { font-size: 16px; color: $muted; }
 .cardLink { margin-top: auto; color: $wine; font-size: 14px; font-weight: 700; }
 .cardLink:hover { text-decoration: underline; }
+.cardBody h3 a:hover { color: $wine; }
+.cardImg { transition: opacity .2s; }
+.cardImg:hover { opacity: .9; }
 .empty { padding: 56px 24px; text-align: center; color: $muted; }
 .showAll { display: none; }
 
