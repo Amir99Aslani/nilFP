@@ -16,7 +16,7 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Content['
         </LocaleLink>
         <nav className={styles.nav} aria-label="Main">
           <LocaleLink href="/">{nav.home}</LocaleLink>
-          <LocaleLink href="/#services">{nav.services}</LocaleLink>
+          <LocaleLink href="/products">{nav.services}</LocaleLink>
           <LocaleLink href="/about">{nav.about}</LocaleLink>
           <LocaleLink href="/contact">{nav.contact}</LocaleLink>
         </nav>
@@ -26,7 +26,7 @@ export default function Header({ locale, nav }: { locale: Locale; nav: Content['
           <MobileMenu
             links={[
               { href: '/', label: nav.home },
-              { href: '/#services', label: nav.services },
+              { href: '/products', label: nav.services },
               { href: '/about', label: nav.about },
               { href: '/contact', label: nav.contact },
             ]}

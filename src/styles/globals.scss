@@ -19,6 +19,7 @@ body {
   font-family: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
   width: 100%;
   min-height: 100%;
+  overflow-x: clip; // safety net only: the real causes are fixed where they happen
 }
 
 /* One font rule per language. Add the others here when they are enabled in src/i18n/config.ts */

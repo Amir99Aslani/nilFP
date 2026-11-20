@@ -7,6 +7,7 @@ import { getContent } from '@/content';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ClientIntroGate from '@/components/IntroOverlay/ClientIntroGate';
+import NavigationLoader from '@/components/layout/NavigationLoader';
 import '@/styles/globals.scss';
 
 // Persian / Arabic script. Not preloaded: the browser only downloads it on pages that use it.
@@ -44,6 +45,8 @@ export default async function LocaleLayout({ children, params }: { children: Rea
     return (
         <html lang={meta.htmlLang} dir={meta.dir} className={`${peyda.variable} ${openSans.variable} ${notoArabic.variable}`}>
             <body suppressHydrationWarning>
+                {/* outside the gate: the gate hides its children until the intro reveals the page */}
+                <NavigationLoader />
                 <ClientIntroGate
                     header={<Header locale={locale} nav={c.nav} />}
                     footer={<Footer footer={c.footer} brand={c.nav.brand} />}

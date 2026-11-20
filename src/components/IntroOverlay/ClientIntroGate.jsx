@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import IntroOverlay from "./IntroOverlay";
 
 import {Toaster} from "react-hot-toast";
@@ -14,23 +15,38 @@ export default function ClientIntroGate({ children, header, footer }) {
     const [revealed, setRevealed] = useState(false);
     const [overlay, setOverlay] = useState(false);
 
-    useEffect(() => {
+    const pathname = usePathname();
+
+    // Tell the rest of the page (hero, PageAnimations) that it can start animating.
+    const signalDone = () => {
+        document.documentElement.dataset.introDone = "1";
+        window.dispatchEvent(new Event("intro:done"));
+    };
+
+    // Decide before the first paint, so a remount (language switch) never shows a hidden page for a frame.
+    // The intro plays once per browser session: the key is written as soon as it starts, so a language
+    // switch in the middle of the intro does not start it again.
+    useLayoutEffect(() => {
         const seen = sessionStorage.getItem(KEY);
         const shouldShow =
             !seen &&
             window.screen.availWidth > 1000 &&
             Date.now() - Number(localStorage.getItem("onceADay")) > 1.224e+8;
 
-        if (shouldShow) setOverlay(true);
-        else setRevealed(true);
+        if (shouldShow) {
+            sessionStorage.setItem(KEY, "1");
+            setOverlay(true);
+        } else {
+            setRevealed(true);
+            signalDone(); // skipped: signal right away, nobody waits for the 10s safety timer
+        }
     }, []);
 
-    // Tell the rest of the page (hero etc.) that it can start animating
+    // Revealed by the overlay, and again after every client navigation (the layout can stay mounted on a
+    // language switch while the new page's hero / PageAnimations mount and wait for the signal).
     useEffect(() => {
-        if (!revealed) return;
-        document.documentElement.dataset.introDone = "1";
-        window.dispatchEvent(new Event("intro:done"));
-    }, [revealed]);
+        if (revealed) signalDone();
+    }, [revealed, pathname]);
 
     return (
         <>
@@ -39,7 +55,6 @@ export default function ClientIntroGate({ children, header, footer }) {
                     logo="/logo.svg" // optional, remove the prop if you don't want a logo
                     onReveal={() => setRevealed(true)}
                     onFinish={() => {
-                        sessionStorage.setItem(KEY, "1");
                         localStorage.setItem("onceADay", Date.now());
                         setOverlay(false);
                     }}

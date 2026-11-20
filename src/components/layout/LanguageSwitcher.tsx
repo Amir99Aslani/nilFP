@@ -43,6 +43,8 @@ export default function LanguageSwitcher({ current, label }: { current: Locale; 
             <li key={l}>
               <Link
                 href={hrefFor(l)}
+                scroll={false} // keep the scroll position when the language changes
+                data-loader="overlay" // NavigationLoader shows its overlay for this link
                 lang={localeMeta[l].htmlLang}
                 hrefLang={localeMeta[l].htmlLang}
                 dir={localeMeta[l].dir}

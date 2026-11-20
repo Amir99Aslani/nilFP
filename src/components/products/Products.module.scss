@@ -73,7 +73,7 @@
 .bandBtns { display: flex; gap: 16px; }
 
 /* ===== FAQ ===== */
-.faq { margin: $section-gap auto; }
+.faq { margin: $section-gap auto; overflow-x: clip; } /* the FAQ image slides in from 56px to the side: in RTL that would widen the page */
 .faqGrid { display: grid; grid-template-columns: 687fr 748fr; gap: 85px; align-items: start; }
 .faqImg { aspect-ratio: 1; border-radius: $r-md; overflow: hidden; }
 .faqImg img { width: 100%; height: 100%; object-fit: cover; }
